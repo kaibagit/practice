@@ -12,6 +12,7 @@
         <module>provider</module>
         <module>customer</module>
         <module>demo</module>
+        <module>demo-web</module>
     </modules>
 
     <dependencies>
