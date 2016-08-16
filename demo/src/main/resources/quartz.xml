@@ -1,0 +1,48 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <bean id="mapScheduler" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="mySimpleJobTrigger" />
+            </list>
+        </property>
+        <property name="applicationContextSchedulerContextKey" value="applicationContext" />
+        <property name="configLocation" value="classpath:quartz.properties" />
+    </bean>
+
+    <!--<bean id="dailyBillJob" class="com.kaiba.demo.quartz.DailyBillJob" />-->
+
+    <bean id="mySimpleJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass">
+            <value>com.kaiba.demo.quartz.MySimpleJob</value>
+        </property>
+        <!--<property name="jobClass">-->
+            <!--<value>com.kaiba.demo.quartz.MyDetailQuartzJobBean-->
+            <!--</value>-->
+        <!--</property>-->
+        <!--<property name="jobDataAsMap">-->
+            <!--<map>-->
+                <!--<entry key="targetObject" value="dailyBillJob" />-->
+                <!--<entry key="targetMethod" value="execute" />-->
+            <!--</map>-->
+        <!--</property>-->
+    </bean>
+
+    <bean id="mySimpleJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <ref bean="mySimpleJobDetail" />
+        </property>
+        <property name="cronExpression">
+            <value>*/10 * * * * ?</value>
+        </property>
+    </bean>
+
+</beans>
