@@ -13,6 +13,7 @@
         <module>customer</module>
         <module>demo</module>
         <module>demo-web</module>
+        <module>microserver</module>
     </modules>
 
     <dependencies>
