@@ -37,7 +37,13 @@
         <appender-ref ref="ERROR-APPENDER" />
     </root>
 
-    <logger name="com.luliru" level="info" additivity="false" >
+    <logger name="com.luliru" level="error" additivity="false" >
+        <appender-ref ref="stdout" />
+        <appender-ref ref="ERROR-APPENDER" />
+        <appender-ref ref="INFO-APPENDER" />
+    </logger>
+
+    <logger name="backtype.storm" level="warn" additivity="false" >
         <appender-ref ref="stdout" />
         <appender-ref ref="ERROR-APPENDER" />
         <appender-ref ref="INFO-APPENDER" />
