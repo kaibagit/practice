@@ -31,6 +31,10 @@
 
     <build>
         <resources>
+            <!-- 如果2文件名相同，则后面的覆盖前面的 -->
+            <resource>
+                <directory>src/main/resources/${profiles.active}</directory>
+            </resource>
             <resource>
                 <directory>src/main/resources</directory>
                 <!-- 资源根目录排除各环境的配置，使用单独的资源目录来指定 -->
@@ -39,9 +43,6 @@
                     <exclude>production/*</exclude>
                     <exclude>development/*</exclude>
                 </excludes>
-            </resource>
-            <resource>
-                <directory>src/main/resources/${profiles.active}</directory>
             </resource>
         </resources>
     </build>
