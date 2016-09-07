@@ -9,7 +9,7 @@ import javax.websocket.server.ServerEndpoint;
 public class WebSocketTest {
 
     @OnMessage
-    public void onMessage(String message, Session session)
+    public void onMessage(String message,final Session session)
             throws IOException, InterruptedException {
 
         // Print the client message for testing purposes
