@@ -30,10 +30,21 @@
     </dependencies>
 
     <build>
+        <!--<filters>-->
+            <!--<filter>src/main/resources/env/env-${profiles.active}.properties</filter>-->
+        <!--</filters>-->
+        <!--<resources>-->
+            <!--<resource>-->
+                <!--<directory>src/main/resources</directory>-->
+                <!--<filtering>true</filtering>-->
+            <!--</resource>-->
+        <!--</resources>-->
         <resources>
             <!-- 如果2文件名相同，则后面的覆盖前面的 -->
             <resource>
                 <directory>src/main/resources/${profiles.active}</directory>
+                <!-- 如果配置了filtering，则优先级较高，会覆盖其他的 -->
+                <filtering>true</filtering>
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
