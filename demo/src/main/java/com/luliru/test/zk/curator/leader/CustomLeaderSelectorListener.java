@@ -15,19 +15,19 @@ import java.util.concurrent.atomic.AtomicInteger;
  * An example leader selector client. Note that {@link LeaderSelectorListenerAdapter} which
  * has the recommended handling for connection state issues
  */
-public class ExampleClient extends LeaderSelectorListenerAdapter implements Closeable
+public class CustomLeaderSelectorListener extends LeaderSelectorListenerAdapter implements Closeable
 {
     private final String name;
     private final LeaderSelector leaderSelector;
     private final AtomicInteger leaderCount = new AtomicInteger();
 
-    public ExampleClient(CuratorFramework client, String path, String name)
+    public CustomLeaderSelectorListener(CuratorFramework client, String path, String name)
     {
         this.name = name;
 
         // create a leader selector using the given path for management
         // all participants in a given leader selection must use the same path
-        // ExampleClient here is also a LeaderSelectorListener but this isn't required
+        // CustomLeaderSelectorListener here is also a LeaderSelectorListener but this isn't required
         leaderSelector = new LeaderSelector(client, path, this);
 
         // for most cases you will want your instance to requeue when it relinquishes leadership

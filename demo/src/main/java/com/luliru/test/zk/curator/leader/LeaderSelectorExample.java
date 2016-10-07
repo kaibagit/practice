@@ -21,26 +21,26 @@ public class LeaderSelectorExample
 
     public static void main(String[] args) throws Exception
     {
-        // all of the useful sample code is in ExampleClient.java
+        // all of the useful sample code is in CustomLeaderSelectorListener.java
 
         System.out.println("Create " + CLIENT_QTY + " clients, have each negotiate for leadership and then wait a random number of seconds before letting another leader election occur.");
         System.out.println("Notice that leader election is fair: all clients will become leader and will do so the same number of times.");
 
-        List<CuratorFramework>  clients = Lists.newArrayList();
-        List<ExampleClient>     examples = Lists.newArrayList();
+        List<CuratorFramework>  clientList = Lists.newArrayList();
+        List<CustomLeaderSelectorListener>     listenerList = Lists.newArrayList();
         TestingServer           server = new TestingServer();
         try
         {
             for ( int i = 0; i < CLIENT_QTY; ++i )
             {
                 CuratorFramework    client = CuratorFrameworkFactory.newClient(server.getConnectString(), new ExponentialBackoffRetry(1000, 3));
-                clients.add(client);
+                clientList.add(client);
 
-                ExampleClient       example = new ExampleClient(client, PATH, "Client #" + i);
-                examples.add(example);
+                CustomLeaderSelectorListener    listener = new CustomLeaderSelectorListener(client, PATH, "Client #" + i);
+                listenerList.add(listener);
 
                 client.start();
-                example.start();
+                listener.start();
             }
 
             System.out.println("Press enter/return to quit\n");
@@ -50,11 +50,11 @@ public class LeaderSelectorExample
         {
             System.out.println("Shutting down...");
 
-            for ( ExampleClient exampleClient : examples )
+            for ( CustomLeaderSelectorListener exampleClient : listenerList )
             {
                 CloseableUtils.closeQuietly(exampleClient);
             }
-            for ( CuratorFramework client : clients )
+            for ( CuratorFramework client : clientList )
             {
                 CloseableUtils.closeQuietly(client);
             }
