@@ -32,8 +32,8 @@
             <version>0.1</version>
             <exclusions>
                 <exclusion>
+                    <artifactId>log4j</artifactId>
                     <groupId>log4j</groupId>
-                    <artifactId>log4j:jar</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -41,13 +41,8 @@
         <dependency>
             <groupId>org.apache.thrift</groupId>
             <artifactId>libthrift</artifactId>
-            <version>0.9.3</version>
+            <version>0.8.0</version>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.apache.thrift</groupId>-->
-            <!--<artifactId>libthrift</artifactId>-->
-            <!--<version>0.8.0</version>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -99,6 +94,12 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
             <version>4.0.9.RELEASE</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+            </exclusions>
             <!--<exclusions>-->
                 <!--<exclusion>-->
                     <!--<groupId>commons-logging</groupId>-->

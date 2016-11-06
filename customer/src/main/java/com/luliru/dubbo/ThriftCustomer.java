@@ -1,5 +1,6 @@
 package com.luliru.dubbo;
 
+import com.luna.demo.service.BizException;
 import com.luna.demo.service.Member;
 import com.luna.demo.service.MemberService;
 import org.apache.thrift.TException;
@@ -15,7 +16,7 @@ public class ThriftCustomer {
 
     private static Logger logger = LoggerFactory.getLogger(ThriftCustomer.class);
 
-    public static void main(String[] args) throws TException {
+    public static void main(String[] args) throws TException, BizException {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:thrift_customer.xml");
         MemberService.Iface memberService = ctx.getBean(MemberService.Iface.class);
         Member member = memberService.findById(1);

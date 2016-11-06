@@ -16,6 +16,6 @@
 
     <dubbo:protocol name="thrift" />
 
-    <dubbo:reference id="memberService" interface="com.luna.demo.service.MemberService$Iface" timeout="3000" />
+    <dubbo:reference id="memberService" interface="com.luna.demo.service.MemberService$Iface" timeout="3000" retries="0"/>
 
 </beans>
