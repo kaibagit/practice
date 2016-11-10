@@ -2,7 +2,7 @@ namespace java com.luna.demo.service
 
 enum CODE {
     SUCCESS = 0;
-    FAIL = -1;
+    FAIL = 1;
 }
 exception BizException {
     1:required CODE code;
