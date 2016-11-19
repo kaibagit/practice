@@ -15,6 +15,7 @@ public class HelloServerHandler extends SimpleChannelInboundHandler<String> {
             throws Exception {
         // 收到消息直接打印输出
         System.out.println(ctx.channel().remoteAddress() + " Say : " + msg);
+        System.out.println("hello thread => "+ctx.executor());
 
         // 返回客户端消息 - 我已经接收到了你的消息
         ctx.writeAndFlush("Received your message !\n");

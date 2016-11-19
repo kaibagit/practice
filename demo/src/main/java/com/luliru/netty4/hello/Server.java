@@ -14,15 +14,15 @@ public class Server {
     public static void main(String[] args){
 
         EventLoopGroup bossGroup = new NioEventLoopGroup();
-        EventLoopGroup workerGroup = new NioEventLoopGroup();
+        EventLoopGroup workerGroup = new NioEventLoopGroup(1);
         try {
-            ServerBootstrap b = new ServerBootstrap();
-            b.group(bossGroup, workerGroup);
-            b.channel(NioServerSocketChannel.class);
-            b.childHandler(new HelloServerInitializer());
+            ServerBootstrap serverBootstrap = new ServerBootstrap();
+            serverBootstrap.group(bossGroup, workerGroup);
+            serverBootstrap.channel(NioServerSocketChannel.class);
+            serverBootstrap.childHandler(new HelloServerInitializer());
 
             // 服务器绑定端口监听
-            ChannelFuture f = b.bind(8080).sync();
+            ChannelFuture f = serverBootstrap.bind(8080).sync();
             // 监听服务器关闭监听
             f.channel().closeFuture().sync();
 
