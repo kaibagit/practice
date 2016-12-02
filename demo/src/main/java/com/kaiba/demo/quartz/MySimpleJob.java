@@ -9,7 +9,7 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 /**
  * Created by luliru on 2016/8/16.
  */
-public class MySimpleJob extends QuartzJobBean {
+public class MySimpleJob extends QuartzJobBean {    //该对象会被持久化到db
 
     protected final Log log = LogFactory.getLog(getClass());
 
