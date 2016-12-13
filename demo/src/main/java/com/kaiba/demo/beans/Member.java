@@ -1,4 +1,4 @@
-package com.luliru.test.hessian;
+package com.kaiba.demo.beans;
 
 import java.io.Serializable;
 
@@ -33,5 +33,24 @@ public class Member implements Serializable {
 
     public void setSex(boolean sex) {
         this.sex = sex;
+    }
+
+    public Member(){
+
+    }
+
+    public Member(Long id, String name, boolean sex) {
+        this.id = id;
+        this.name = name;
+        this.sex = sex;
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", sex=" + sex +
+                '}';
     }
 }

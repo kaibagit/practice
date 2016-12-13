@@ -2,6 +2,7 @@ package com.luliru.test.hessian;
 
 import com.caucho.hessian.io.HessianInput;
 import com.caucho.hessian.io.HessianOutput;
+import com.kaiba.demo.beans.Member;
 
 import java.io.*;
 
