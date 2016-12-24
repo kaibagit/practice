@@ -10,6 +10,7 @@ public class CMain {
     public static void main(String[] args){
         ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:customer.xml");
         UserService userService =ctx.getBean(UserService.class);
+        userService.fingByIds(1L,2L);
         System.out.println(userService.hello("222"));
     }
 }

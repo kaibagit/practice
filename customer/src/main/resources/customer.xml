@@ -12,7 +12,7 @@
     <!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
     <dubbo:application name="dubbo_test_customer"/>
 
-    <dubbo:registry address="zookeeper://192.168.31.219:2181" />
+    <dubbo:registry address="zookeeper://localhost:2181" />
 
     <dubbo:protocol name="dubbo" port="20881" />
 
