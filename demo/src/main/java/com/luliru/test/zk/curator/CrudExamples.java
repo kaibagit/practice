@@ -27,7 +27,9 @@ public class CrudExamples
     public static void create(CuratorFramework client, String path, byte[] payload) throws Exception
     {
         // this will create the given ZNode with the given data
-        client.create().forPath(path, payload);
+        //client.create().forPath(path, payload);   //如果没有父级节点会抛出异常
+        //自动创建父级节点
+        client.create().creatingParentsIfNeeded().forPath(path, payload);
     }
 
     public static void createEphemeral(CuratorFramework client, String path, byte[] payload) throws Exception
@@ -135,5 +137,13 @@ public class CrudExamples
                 System.out.println("node is changed");
             }
         }).forPath(path);
+    }
+
+    public void checkExist(CuratorFramework client,String path)throws Exception{
+        if(client.checkExists().forPath(path)==null){
+            System.out.println("Path does not exist!");
+        }else{
+            System.out.println("The path already exists!");
+        }
     }
 }
