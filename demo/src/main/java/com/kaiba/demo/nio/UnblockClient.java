@@ -35,15 +35,15 @@ public class UnblockClient {
                     SelectionKey key = (SelectionKey) ite.next();
 
                     if(key.isConnectable()){
-                        if(channel.isConnectionPending()){
-                            if(channel.finishConnect()){
+                        try{
+                            while(channel.finishConnect()){
                                 //只有当连接成功后才能注册OP_READ事件
                                 key.interestOps(SelectionKey.OP_READ | SelectionKey.OP_WRITE);
                                 System.out.println("Connected: " + channel.socket().getLocalAddress());
                             }
-                            else{
-                                key.cancel();
-                            }
+                        }catch (IOException e){
+                            key.cancel();
+                            throw e;
                         }
                     }
                     if(key.isWritable()){
