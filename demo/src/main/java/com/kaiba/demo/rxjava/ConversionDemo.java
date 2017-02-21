@@ -76,7 +76,7 @@ public class ConversionDemo {
             }
         };
 
-        //数据流向：call => map函数 => observer
+        //数据流向：call => map后flat => observer
         observable.flatMap(new Func1<String,Observable<Integer>>(){
             @Override
             public Observable<Integer> call(String name) {
