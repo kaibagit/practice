@@ -195,6 +195,12 @@
             <version>1.2.6</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>3.6.0</version>
+        </dependency>
+
         <!-- Storm Dependency -->
         <dependency>
             <groupId>storm</groupId>
