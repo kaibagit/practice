@@ -6,6 +6,9 @@ import javax.management.*;
 import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXConnectorFactory;
 import javax.management.remote.JMXServiceURL;
+import java.lang.management.ClassLoadingMXBean;
+import java.lang.management.GarbageCollectorMXBean;
+import java.lang.management.ThreadMXBean;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -42,6 +45,13 @@ public class Client {
         //invoke via rmi
         mbsc.invoke(mbeanName, "summary", null, null);
         mbsc.invoke(mbeanName, "set", new Object[] { "I'll connect to JMX Server via client2." }, new String[] { String.class.getName() });
+
+        ClassLoadingMXBean classLoadingMXBean = MBeanServerInvocationHandler.newProxyInstance(mbsc, new ObjectName("java.lang:type=ClassLoading"), ClassLoadingMXBean.class, false);
+        System.out.println("loadedClassCount:"+classLoadingMXBean.getLoadedClassCount());
+        GarbageCollectorMXBean garbageCollectorMXBean = MBeanServerInvocationHandler.newProxyInstance(mbsc, new ObjectName("java.lang:type=GarbageCollector,name=PS MarkSweep"), GarbageCollectorMXBean.class, false);
+        System.out.println("collectionTime:"+garbageCollectorMXBean.getCollectionTime());
+        ThreadMXBean threadMXBean = MBeanServerInvocationHandler.newProxyInstance(mbsc, new ObjectName("java.lang:type=Threading"), ThreadMXBean.class, false);
+        System.out.println("threadCount:"+threadMXBean.getThreadCount());
 
         //get mbean information
         MBeanInfo info = mbsc.getMBeanInfo(mbeanName);
