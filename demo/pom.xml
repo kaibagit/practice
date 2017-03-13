@@ -223,6 +223,12 @@
             </exclusions>
         </dependency>
 
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>3.0</version>
+        </dependency>
+
         <!-- jmx -->
         <dependency>
             <groupId>com.sun.jdmk</groupId>
