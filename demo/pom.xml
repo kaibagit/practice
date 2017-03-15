@@ -66,6 +66,10 @@
                     <groupId>log4j</groupId>
                     <artifactId>log4j</artifactId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>com.google</artifactId>
+                    <groupId>guava</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -234,6 +238,18 @@
             <groupId>com.sun.jdmk</groupId>
             <artifactId>jmxtools</artifactId>
             <version>1.2.1</version>
+        </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>org.elasticsearch</groupId>-->
+            <!--<artifactId>elasticsearch</artifactId>-->
+            <!--<version>1.7.1</version>-->
+        <!--</dependency>-->
+
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+            <version>2.4.1</version>
         </dependency>
 
     </dependencies>
