@@ -133,6 +133,12 @@
             <artifactId>spring-webmvc</artifactId>
             <version>4.0.9.RELEASE</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.netflix.hystrix</groupId>
+            <artifactId>hystrix-core</artifactId>
+            <version>1.5.10</version>
+        </dependency>
     </dependencies>
 
     <build>
