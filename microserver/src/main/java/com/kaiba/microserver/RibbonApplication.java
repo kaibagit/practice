@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 /**
+ * 负载均衡器Ribbon
  * Created by luliru on 2016/8/29.
  */
 @SpringBootApplication

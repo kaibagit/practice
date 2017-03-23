@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Created by luliru on 2016/8/29.
  */
-//@RestController
+@RestController
 public class ComputeController {
 
     private final Logger logger = Logger.getLogger(getClass());
