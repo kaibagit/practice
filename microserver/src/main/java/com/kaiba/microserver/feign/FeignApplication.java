@@ -1,4 +1,4 @@
-package com.kaiba.microserver;
+package com.kaiba.microserver.feign;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

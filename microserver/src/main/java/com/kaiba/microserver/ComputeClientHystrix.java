@@ -1,5 +1,6 @@
-package com.kaiba.microserver.service;
+package com.kaiba.microserver;
 
+import com.kaiba.microserver.feign.ComputeClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestParam;
 

@@ -1,5 +1,6 @@
-package com.kaiba.microserver.service;
+package com.kaiba.microserver.feign;
 
+import com.kaiba.microserver.ComputeClientHystrix;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

@@ -1,6 +1,5 @@
-package com.kaiba.microserver.controller;
+package com.kaiba.microserver.feign;
 
-import com.kaiba.microserver.service.ComputeClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

@@ -1,4 +1,4 @@
-package com.kaiba.microserver.service;
+package com.kaiba.microserver.ribbon;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;

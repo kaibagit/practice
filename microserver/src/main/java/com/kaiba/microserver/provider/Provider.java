@@ -1,17 +1,18 @@
-package com.kaiba.microserver;
+package com.kaiba.microserver.provider;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * Created by luliru on 2016/8/29.
  */
-@EnableEurekaServer
+@EnableDiscoveryClient
 @SpringBootApplication
-public class Registry {
+public class Provider {
 
     public static void main(String[] args) {
-        new SpringApplicationBuilder(Registry.class).web(true).run(args);
+        new SpringApplicationBuilder(Provider.class).web(true).run(args);
     }
+
 }
