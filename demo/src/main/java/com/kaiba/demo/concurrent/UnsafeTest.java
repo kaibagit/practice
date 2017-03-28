@@ -14,7 +14,7 @@ public class UnsafeTest {
     private int value = 2;
 
     public static void main(String[] args) throws Exception {
-        showDontFreeMemory();
+        testPark();
     }
 
     public static void test() throws Exception {
@@ -96,5 +96,16 @@ public class UnsafeTest {
                 }
             }.start();
         }
+    }
+
+    public static void testPark() throws Exception {
+        long sleepNanoTime = 5L * 1000 * 1000 * 1000;   //睡眠5秒
+        Unsafe unsafe = getUnsafe();
+        unsafe.unpark(Thread.currentThread());  //调用unpark之后，Thread调用park会马上被唤起
+        unsafe.unpark(new Thread());  //调用unpark之后，不会对Main Thread有影响
+        long begin = System.nanoTime();
+        unsafe.park(false,sleepNanoTime);
+        long end = System.nanoTime();
+        System.out.println("testPark sleep:"+(end - begin)/(1000*1000)+"ms");
     }
 }
