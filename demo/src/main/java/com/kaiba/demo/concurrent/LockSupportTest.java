@@ -18,6 +18,7 @@ public class LockSupportTest {
                 }
                 System.out.println(this+" over.");
                 LockSupport.unpark(mainThread); //唤醒Main线程
+//                mainThread.interrupt();       //唤醒Main线程
             }
         };
         thread.start();
