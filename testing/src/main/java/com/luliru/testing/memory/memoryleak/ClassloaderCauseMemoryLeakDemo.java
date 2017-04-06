@@ -9,9 +9,9 @@ import java.lang.reflect.Method;
 /**
  * Created by luliru on 2017/4/6.
  */
-public class MemoryLeakDemo {
+public class ClassloaderCauseMemoryLeakDemo {
 
-    private static final Logger log = LoggerFactory.getLogger(MemoryLeakDemo.class);
+    private static final Logger log = LoggerFactory.getLogger(ClassloaderCauseMemoryLeakDemo.class);
 
     public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException, InterruptedException {
         ClassLoader classLoaderA = new ClassLoaderA();
