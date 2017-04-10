@@ -3,7 +3,8 @@ package com.kaiba.demo.concurrent.lock;
 import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 
 /**
- * CLH锁也是一种基于链表的可扩展、高性能、公平的自旋锁，申请线程只在本地变量上自旋，它不断轮询前驱的状态，如果发现前驱释放了锁就结束自旋。
+ * CLH锁也是一种基于链表的可扩展、高性能、公平的自旋锁，申请线程只在本地变量上自旋，它不断轮询前驱的状态，如果发现前驱释放了锁就结束自旋。<br>
+ * 每个node引用上一个节点，当上一个节点isLocked=false，则表示自己获得了锁，否则自旋
  * Created by luliru on 2017/4/7.
  */
 public class CLHLock {
@@ -30,6 +31,6 @@ public class CLHLock {
     }
 
     public static class CLHNode {
-        private boolean isLocked = true; // 默认是在等待锁
+        private volatile boolean isLocked = true; // 默认是在等待锁
     }
 }
