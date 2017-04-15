@@ -20,6 +20,9 @@ public class JedisUtilTest {
         destroy();
     }
 
+    /**
+     * 单台模式
+     */
     public static void init(){
         //public JedisPool(final GenericObjectPoolConfig poolConfig, final String host, int port, int timeout, final String password, final int database)
         //new JedisPool(new JedisPoolConfig(), "localhost", 6379, 10000, null, SMS_REDIS_DB);
@@ -32,6 +35,9 @@ public class JedisUtilTest {
         jedis.select(DBIndex);
     }
 
+    /**
+     * 分片模式（ShardedJedis）
+     */
     public static void shardingInit(){
         JedisShardInfo jedisShardInfo = new JedisShardInfo("localhost");
         List<JedisShardInfo> list = new LinkedList<JedisShardInfo>();
@@ -43,6 +49,21 @@ public class JedisUtilTest {
         ShardedJedis jedis = pool.getResource();
         // 释放对象池
         pool.returnResource(jedis);
+    }
+
+    /**
+     * 集群模式（BinaryJedisCluster）
+     */
+    public static void clusterInit(){
+        HostAndPort hp0 = new HostAndPort("localhost", 7000);
+        HostAndPort hp1 = new HostAndPort("localhost", 7001);
+
+        Set<HostAndPort> hps = new HashSet<HostAndPort>();
+        hps.add(hp0);
+        hps.add(hp1);
+
+        // 超时，最大的转发数，最大链接数，最小链接数都会影响到集群
+        JedisCluster jedisCluster = new JedisCluster(hps, 5000, 10, getConfig());
     }
 
     public static JedisPoolConfig getConfig(){
