@@ -1,4 +1,4 @@
-package com.kaiba.demo.redisson;
+package com.kaiba.demo.redis.redisson;
 
 import io.netty.util.concurrent.Future;
 import org.redisson.Config;
