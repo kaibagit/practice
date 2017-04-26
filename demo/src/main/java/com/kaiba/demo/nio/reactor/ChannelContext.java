@@ -72,8 +72,8 @@ public class ChannelContext {
         System.out.println(Thread.currentThread());
         SocketChannel socketChannel = (SocketChannel)channel;
         writeBuffer.flush(socketChannel);
-        if(writeBuffer.getRemains() > 0){
-            socketChannel.register(selector,selectionKey.interestOps() | SelectionKey.OP_WRITE,this);
-        }
+//        if(writeBuffer.getRemains() > 0){
+//            socketChannel.register(selector,selectionKey.interestOps() | SelectionKey.OP_WRITE,this);
+//        }
     }
 }

@@ -18,13 +18,12 @@ public class Dispacher implements Handler {
 
     @Override
     public void read(ChannelContext ctx) throws IOException {
-//        int i = ctx.read();
-//        while (i > 0){
-//            System.out.println("ctx:"+ctx+"; buf:"+ctx.getReadBuffer()+"; i:"+i+";p="+ctx.getReadBuffer().position());
-//            i = ctx.read();
-//        }
+        //持续将数据读入buffer
         while(ctx.read() > 0);
-        readBiz(ctx,ctx.getReadBuffer());
+        //处理业务
+        bizHandler(ctx,ctx.getReadBuffer());
+        //将buffer中的业务数据，写入channel
+        ctx.flush();
     }
 
     @Override
@@ -32,8 +31,8 @@ public class Dispacher implements Handler {
 
     }
 
-    private void readBiz(ChannelContext ctx,ByteBuffer buffer) throws IOException {
-        System.out.println("readBiz,Thread="+Thread.currentThread()+";p="+buffer.position());
+    private void bizHandler(ChannelContext ctx, ByteBuffer buffer) throws IOException {
+        System.out.println("bizHandler,Thread="+Thread.currentThread()+";p="+buffer.position());
         if(buffer.position() > 10){
             buffer.flip();
             byte[] bytes = new byte[10];
@@ -41,7 +40,6 @@ public class Dispacher implements Handler {
             buffer.compact();
             System.out.println(new String(bytes));
             ctx.write(bytes);
-            ctx.flush();
         }
     }
 }

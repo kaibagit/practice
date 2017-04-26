@@ -1,5 +1,8 @@
 package com.kaiba.demo.nio.reactor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -16,6 +19,8 @@ import java.util.concurrent.Executors;
  */
 public class NioReactor{
 
+    private static final Logger log = LoggerFactory.getLogger(NioReactor.class);
+
     //-1：已结束 0：未开始 1：进行中
     private static final int UNSTARTED = 0;
 
@@ -27,11 +32,9 @@ public class NioReactor{
 
     private int port;
 
-    private int workerThreadNum;
+    private int workerThreadNum = 4;
 
-    private ExecutorService workerThreads;
-
-    private int status = UNSTARTED;
+    private volatile int status = UNSTARTED;
 
     private Acceptor acceptor = new Acceptor();
 
@@ -40,7 +43,6 @@ public class NioReactor{
     private ExecutorService executor = Executors.newFixedThreadPool(4);
 
     public NioReactor() throws IOException {
-        selector = Selector.open(); // 创建Selector
     }
 
     public NioReactor bind(int port) {
@@ -54,11 +56,14 @@ public class NioReactor{
     }
 
     public void start() throws IOException {
+        executor = Executors.newFixedThreadPool(workerThreadNum);
+
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
         InetSocketAddress address = new InetSocketAddress(InetAddress.getLocalHost(), 10000);
         serverSocketChannel.socket().bind(address);
         serverSocketChannel.configureBlocking(false);
 
+        selector = Selector.open(); // 创建Selector
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT); // 注册ServerSocket通道上的Accept事件
 
         status = RUNNING;
@@ -81,6 +86,7 @@ public class NioReactor{
                                 }
                                 if (key.isReadable()) {
                                     final ChannelContext ctx = (ChannelContext) key.attachment();
+//                                    key.interestOps()
                                     Runnable run = new Runnable() {
                                         @Override
                                         public void run() {
@@ -91,7 +97,8 @@ public class NioReactor{
                                             }
                                         }
                                     };
-                                    executor.execute(run);
+//                                    Thread.sleep(1000L);
+//                                    executor.execute(run);
                                 }
                                 if (key.isWritable()) {
                                     final ChannelContext ctx = (ChannelContext) key.attachment();
@@ -107,7 +114,7 @@ public class NioReactor{
                             }
                         }
                     }
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
