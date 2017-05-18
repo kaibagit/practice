@@ -112,6 +112,12 @@
             <!--<artifactId>spring-messaging</artifactId>-->
             <!--<version>4.0.9.RELEASE</version>-->
         <!--</dependency>-->
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>5.0.2.Final</version>
+        </dependency>
     </dependencies>
 
     <build>
