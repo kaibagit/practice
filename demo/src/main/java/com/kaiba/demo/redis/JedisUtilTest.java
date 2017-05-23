@@ -66,6 +66,22 @@ public class JedisUtilTest {
         JedisCluster jedisCluster = new JedisCluster(hps, 5000, 10, getConfig());
     }
 
+    /**
+     * sentinel群集
+     */
+    public static void sentinelInit(){
+        JedisPoolConfig config = getConfig();
+
+        String masterName = "mymaster";
+        Set<String> sentinels = new HashSet<>();
+        sentinels.add("192.168.137.128:26379");
+        sentinels.add("192.168.137.128:26380");
+        sentinels.add("192.168.137.128:26381");
+
+        JedisSentinelPool pool = new JedisSentinelPool(masterName, sentinels, config);
+        jedis = pool.getResource();
+    }
+
     public static JedisPoolConfig getConfig(){
         JedisPoolConfig config = new JedisPoolConfig();
 
