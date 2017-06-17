@@ -8,31 +8,29 @@ import java.util.concurrent.TimeUnit;
  */
 class DelayedElement implements Delayed {
 
-    private final long delay;
+    private final long delayId;
 
-    private final long expire;
+    private final long expireMillisecond;
 
     public DelayedElement(long delay) {
-        this.delay = delay;
-        expire = System.currentTimeMillis() + delay;
+        this.delayId = delay;
+        expireMillisecond = System.currentTimeMillis() + delay;
     }
 
     @Override
-
     public long getDelay(TimeUnit unit) {
-        return expire - System.currentTimeMillis();
+        return unit.convert((expireMillisecond - System.currentTimeMillis()),TimeUnit.MILLISECONDS);
     }
 
     @Override
-
     public int compareTo(Delayed o) {
-        return (int) (this.delay - o.getDelay(TimeUnit.MILLISECONDS));
+        DelayedElement element = (DelayedElement)o;
+        return (int) (this.expireMillisecond - element.expireMillisecond);
     }
 
     @Override
-
     public String toString() {
-        return "DelayedElement is " + delay;
+        return "DelayedElement is " + delayId;
     }
 
 }
