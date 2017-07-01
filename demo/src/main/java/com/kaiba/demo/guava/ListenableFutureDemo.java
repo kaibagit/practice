@@ -17,7 +17,7 @@ public class ListenableFutureDemo {
         transform();
     }
 
-    private static void test() throws InterruptedException {
+    private static void basicApi() throws InterruptedException {
         ListeningExecutorService pool = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(10));
 
         final ListenableFuture<String> future = pool.submit(new Callable<String>() {
