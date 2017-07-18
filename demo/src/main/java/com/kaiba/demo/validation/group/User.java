@@ -31,7 +31,7 @@ public class User {
         Validator validator = vf.getValidator();
         Set<ConstraintViolation<User>> set = validator.validate(user,Group.class);
         for (ConstraintViolation<User> constraintViolation : set) {
-            System.out.println(constraintViolation.getMessage());
+            System.out.println(constraintViolation.getPropertyPath() + " " +constraintViolation.getMessage());
         }
     }
 }
