@@ -18,12 +18,12 @@ public class SearTest {
         m.setSex(true);
 
         //序列化
-        FileOutputStream os = new FileOutputStream("member.out");
+        FileOutputStream os = new FileOutputStream("member.txt");
         HessianOutput ho = new HessianOutput(os);
         ho.writeObject(m);
 
         //反序列化
-        FileInputStream is = new FileInputStream("member.out");
+        FileInputStream is = new FileInputStream("member.txt");
         HessianInput hi = new HessianInput(is);
         Object o = hi.readObject();
         System.out.println(o);
