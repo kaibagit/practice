@@ -32,4 +32,8 @@
         </websocket:handshake-interceptors>
     </websocket:handlers>
 
+    <bean class="org.springframework.validation.beanvalidation.BeanValidationPostProcessor" />
+
+    <bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"/>
+
 </beans>

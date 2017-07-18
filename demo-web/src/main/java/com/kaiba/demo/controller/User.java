@@ -2,6 +2,7 @@ package com.kaiba.demo.controller;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -10,6 +11,7 @@ import java.io.Serializable;
 /**
  * Created by luliru on 2017/5/16.
  */
+@Validated
 public class User implements Serializable {
     @NotNull(message = "ID不能为空")
     private Long id;
