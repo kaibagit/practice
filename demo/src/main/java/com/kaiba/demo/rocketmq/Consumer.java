@@ -40,6 +40,8 @@ public class Consumer {
                     }
             );
             consumer.start();
+            System.in.read();
+            consumer.shutdown();
         } catch (Exception e) {
             e.printStackTrace();
         }
