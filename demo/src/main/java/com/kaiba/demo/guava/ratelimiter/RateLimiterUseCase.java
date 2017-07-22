@@ -1,4 +1,4 @@
-package com.kaiba.demo.guava;
+package com.kaiba.demo.guava.ratelimiter;
 
 import com.google.common.util.concurrent.RateLimiter;
 import org.slf4j.Logger;
@@ -48,11 +48,21 @@ public class RateLimiterUseCase {
 
     public void processWithTokenBucket() {
         buildRateLimiter(RateLimiter.create(qps));
+        try {
+            Thread.sleep(1000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         doProcess();
     }
 
     public void processWithLeakBucket() {
         buildRateLimiter(RateLimiter.create(qps, 0, TimeUnit.MILLISECONDS));
+        try {
+            Thread.sleep(1000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         doProcess();
     }
 

@@ -1,4 +1,4 @@
-package com.kaiba.demo.guava;
+package com.kaiba.demo.guava.ratelimiter;
 
 import com.google.common.util.concurrent.RateLimiter;
 
@@ -7,8 +7,8 @@ import com.google.common.util.concurrent.RateLimiter;
  */
 public class RateLimiterDemo {
     public static void main(String[] args) throws InterruptedException {
-//        testNoRateLimiter();
-//        testWithRateLimiter();
+        testNoRateLimiter();
+        testWithRateLimiter();
         testBursts();
     }
 
