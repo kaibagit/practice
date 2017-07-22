@@ -3,6 +3,7 @@ package com.kaiba.demo.concurrent.future;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -14,11 +15,12 @@ public class SeparateIOPool {
 
     private static final Logger log = LoggerFactory.getLogger(SeparateIOPool.class);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         CompletableFuture.supplyAsync(SeparateIOPool::getFileName)
                 .thenApplyAsync(SeparateIOPool::readDiskBlocking, DISK_1)
                 .thenAcceptAsync(SeparateIOPool::writeLanBlocking, LAN_1)
                 .thenRunAsync(SeparateIOPool::notifyUser);
+        System.in.read();
     }
 
     public static String getFileName(){
