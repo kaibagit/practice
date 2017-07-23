@@ -32,7 +32,9 @@
         </websocket:handshake-interceptors>
     </websocket:handlers>
 
-    <bean class="org.springframework.validation.beanvalidation.BeanValidationPostProcessor" />
+    <bean id="exceptionResolver"
+          class="com.kaiba.demo.MyHandlerExceptionResolver">
+    </bean>
 
     <bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"/>
 

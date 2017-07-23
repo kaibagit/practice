@@ -4,9 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -34,19 +36,27 @@ public class ValidateController {
         System.out.println(user);
     }
 
-    //抛出javax.validation.ConstraintViolationException
+    //user校验抛出抛出BindException，code校验抛出javax.validation.ConstraintViolationException
     @ResponseBody
     @RequestMapping("user3")
-    public void user3(User user,@NotNull String code){
+    public void user3(@Validated User user,@NotNull String code){
         System.out.println(user);
         System.out.println("code="+code);
     }
 
+    //抛出javax.validation.ConstraintViolationException
     @ResponseBody
     @RequestMapping("user4")
     public String user4(@NotNull User user,@NotNull String code){
         System.out.println(user);
         System.out.println("code="+code);
         return "user4";
+    }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseBody
+    public String handleException(Exception e,HttpServletRequest request) {
+        e.printStackTrace();
+        return "error";
     }
 }
