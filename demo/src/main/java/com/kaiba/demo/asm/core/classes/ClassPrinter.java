@@ -1,4 +1,4 @@
-package com.kaiba.demo.asm;
+package com.kaiba.demo.asm.core.classes;
 
 import org.objectweb.asm.*;
 

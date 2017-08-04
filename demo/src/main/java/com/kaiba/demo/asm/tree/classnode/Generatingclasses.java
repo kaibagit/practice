@@ -1,4 +1,4 @@
-package com.kaiba.demo.asm.tree;
+package com.kaiba.demo.asm.tree.classnode;
 
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.FieldNode;

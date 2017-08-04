@@ -1,4 +1,4 @@
-package com.kaiba.demo.asm;
+package com.kaiba.demo.asm.core.method;
 
 /**
  * Created by luliru on 2017/7/23.

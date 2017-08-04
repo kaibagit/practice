@@ -1,4 +1,4 @@
-package com.kaiba.demo.asm.tree;
+package com.kaiba.demo.asm.tree.method;
 
 import org.objectweb.asm.tree.*;
 
