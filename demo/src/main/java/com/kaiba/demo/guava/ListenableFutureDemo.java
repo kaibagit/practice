@@ -1,20 +1,21 @@
 package com.kaiba.demo.guava;
 
 import com.google.common.util.concurrent.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 /**
  * Created by luliru on 2017/6/26.
  */
 public class ListenableFutureDemo {
 
+    private static final Logger log = LoggerFactory.getLogger(ListenableFutureDemo.class);
+
     public static void main(String[] args) throws InterruptedException {
-        transform();
+        transformFuture();
     }
 
     private static void basicApi() throws InterruptedException {
@@ -208,5 +209,28 @@ public class ListenableFutureDemo {
             Thread.sleep(4000);
             return 3;
         }
+    }
+
+    public static void transformFuture(){
+        ExecutorService threadPool = Executors.newFixedThreadPool(3);
+        Future<String> future = threadPool.submit(new Callable<String>() {
+            @Override
+            public String call() throws Exception {
+                Thread.sleep(2000L);
+                log.info("world");
+                return "world";
+            }
+        });
+        ListenableFuture<String> listenableFuture = JdkFutureAdapters.listenInPoolThread(future);
+        Futures.addCallback(listenableFuture, new FutureCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                log.info("hello " + result);
+            }
+            @Override
+            public void onFailure(Throwable t) {
+            }
+        },threadPool);
+        log.info("end.");
     }
 }
