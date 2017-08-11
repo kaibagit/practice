@@ -12,6 +12,7 @@ public class User implements Serializable{
     private String username;
     private Boolean sex;
     private Date birthday;
+    private Home home;
 
     public Long getId() {
         return id;
@@ -45,6 +46,14 @@ public class User implements Serializable{
         this.birthday = birthday;
     }
 
+    public Home getHome() {
+        return home;
+    }
+
+    public void setHome(Home home) {
+        this.home = home;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -52,6 +61,7 @@ public class User implements Serializable{
                 ", username='" + username + '\'' +
                 ", sex=" + sex +
                 ", birthday=" + birthday +
+                ", home=" + home +
                 '}';
     }
 }

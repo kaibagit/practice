@@ -14,9 +14,9 @@ import java.util.Random;
 public class UserServiceImpl implements UserService {
 
     public String hello(String id) {
-        if(true){
-            throw new BizException("error");
-        }
+//        if(true){
+//            throw new BizException("error");
+//        }
         return "hello "+id;
     }
 
