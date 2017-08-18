@@ -1,9 +1,9 @@
 package com.kaiba.demo.redis.redisson;
 
-import io.netty.util.concurrent.Future;
-import org.redisson.Config;
 import org.redisson.Redisson;
-import org.redisson.core.*;
+import org.redisson.api.*;
+import org.redisson.api.listener.MessageListener;
+import org.redisson.config.Config;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -17,22 +17,34 @@ public class RedissonTest {
 
     public static void main(String[] args){
         RedissonTest test = new RedissonTest();
-        test.start();
+        test.startWithSentinel();
 
         test.testGetRLock();
 
         test.shutdown();
     }
 
-    Redisson redisson;
+    RedissonClient redisson;
 
     /**
      * 每次在测试方法运行之前 运行此方法
      * 创建客户端连接服务器的redisson对象
      */
-    public void start() {
+    public void startSingle() {
         Config config = new Config();
         config.useSingleServer().setAddress("localhost:6379");
+        redisson = Redisson.create(config);
+    }
+
+    public void startWithSentinel(){
+        Config config = new Config();
+        config.useSentinelServers()
+                .setMasterName("master-dev")
+                //可以用"rediss://"来启用SSL连接
+                .addSentinelAddress("192.168.11.29:26001", "192.168.11.32:26001")
+                .addSentinelAddress("192.168.11.20:26001")
+                .setPassword("wIvJt@_redis");
+
         redisson = Redisson.create(config);
     }
 
@@ -90,10 +102,10 @@ public class RedissonTest {
         //添加key-value 不返回之前关联过的值
         boolean third = rMap.fastPut("333", 333);
         System.out.println(third);
-        Future<Boolean> fiveFuture = rMap.fastPutAsync("444", 444);
+        RFuture<Boolean> fiveFuture = rMap.fastPutAsync("444", 444);
         System.out.println(fiveFuture.isSuccess());
         //异步移除key
-        Future<Long> sixFuture = rMap.fastRemoveAsync("444");
+        RFuture<Long> sixFuture = rMap.fastRemoveAsync("444");
         System.out.println(String.valueOf(sixFuture.get()));
         //遍历集合
         for(String key : rMap.keySet()){
@@ -245,6 +257,34 @@ public class RedissonTest {
     }
 
     /**
+     * 锁竞争
+     */
+    public void testRlockContention(){
+        RLock rLock = redisson.getLock("testLock1");
+        rLock.lock();
+        try {
+            Thread.sleep(10000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        rLock.unlock();
+    }
+
+    /**
+     * 锁超时
+     */
+    public void testRlockTimeout(){
+        RLock rLock = redisson.getLock("testLock1");
+        rLock.lock();
+        try {
+            Thread.sleep(40000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        rLock.unlock();
+    }
+
+    /**
      * RAtomicLong 映射为redis server的string 类型
      * string中数值
      * 查看所有键---->keys *
@@ -285,8 +325,7 @@ public class RedissonTest {
         rTopic.addListener(new MessageListener<String>() {
 
             @Override
-            public void onMessage(String msg) {
-                // TODO Auto-generated method stub
+            public void onMessage(String channel, String msg) {
                 System.out.println("你发布的是:"+msg);
             }
         });
