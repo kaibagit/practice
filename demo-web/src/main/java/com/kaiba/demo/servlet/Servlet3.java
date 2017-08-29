@@ -1,5 +1,8 @@
 package com.kaiba.demo.servlet;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.AsyncContext;
 import javax.servlet.AsyncEvent;
 import javax.servlet.AsyncListener;
@@ -18,10 +21,14 @@ import java.util.Date;
 @WebServlet(name="Servlet3", urlPatterns={"/demo", "/servlet"},asyncSupported=true)//此为Servlet3新增的注解支持，asyncSupported=true表示支持异步
 //也可在web.xml中添加<async-supported>true</async-supported>
 public class Servlet3 extends HttpServlet{
+
+    private static final Logger log = LoggerFactory.getLogger(Servlet3.class);
+
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html;charset=utf-8");
         PrintWriter out = resp.getWriter();
         out.println("下订单开始: " + new Date() + "<br/>");
+        log.info("下订单开始");
         out.flush();
 
         AsyncContext ctx = req.startAsync();
@@ -44,11 +51,15 @@ public class Servlet3 extends HttpServlet{
         //异步去执行开通订单
         new Thread(new CheckOrder(ctx)).start();
         out.println("订购成功: " + new Date()+ "<br/>");
+        log.info("订购成功");
         out.flush();
     }
 }
 
 class CheckOrder implements Runnable{
+
+    private static final Logger log = LoggerFactory.getLogger(CheckOrder.class);
+
     private AsyncContext ctx = null;
 
     public CheckOrder(AsyncContext ctx) {
@@ -60,6 +71,7 @@ class CheckOrder implements Runnable{
             Thread.sleep(3000);
             PrintWriter out = ctx.getResponse().getWriter();
             out.println("已经有权限了，let's go! : " + new Date() );
+            log.info("已经有权限了");
             out.flush();
             ctx.complete();
         } catch (Exception e) {
