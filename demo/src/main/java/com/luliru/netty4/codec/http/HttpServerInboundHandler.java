@@ -5,8 +5,15 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.codec.http.*;
+import io.netty.handler.codec.http.multipart.Attribute;
+import io.netty.handler.codec.http.multipart.DefaultHttpDataFactory;
+import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
+import io.netty.handler.codec.http.multipart.InterfaceHttpData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
+import java.util.Map;
 
 import static io.netty.handler.codec.http.HttpHeaders.Names.*;
 import static io.netty.handler.codec.http.HttpResponseStatus.OK;
@@ -28,6 +35,26 @@ public class HttpServerInboundHandler extends ChannelInboundHandlerAdapter {
             if (HttpHeaders.isContentLengthSet(request)) {
                 reader = new ByteBufToBytes((int) HttpHeaders.getContentLength(request));
             }
+
+            if(request.getMethod() == HttpMethod.GET){
+                QueryStringDecoder decoder = new QueryStringDecoder(request.getUri());
+                Map<String, List<String>> parame = decoder.parameters();
+                List<String> q = parame.get("q"); // 读取从客户端传过来的参数
+                String question = q.get(0);
+                System.out.println("q:" + question);
+            }else if(request.getMethod() == HttpMethod.POST){
+                HttpPostRequestDecoder decoder = new HttpPostRequestDecoder(
+                        new DefaultHttpDataFactory(false), request);
+                InterfaceHttpData postData = decoder.getBodyHttpData("q");
+                String question = null;
+                if (postData.getHttpDataType() == InterfaceHttpData.HttpDataType.Attribute) {
+                    Attribute attribute = (Attribute) postData;
+                    question = attribute.getValue();
+                    System.out.println("q:" + question);
+                }
+            }
+
+
         }
 
         if (msg instanceof HttpContent) {
