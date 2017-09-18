@@ -18,7 +18,8 @@
 
     <dubbo:service interface="com.luliru.UserService" ref="userServiceImpl"/>
 
-    <dubbo:provider>
+    <dubbo:provider threads="10" threadpool="cached">
+        <dubbo:parameter key="corethreads" value="1" />
         <dubbo:parameter key="exceptionLog" value="true" />
         <dubbo:parameter key="accesslog" value="logs/rpc_access.log" />
     </dubbo:provider>
