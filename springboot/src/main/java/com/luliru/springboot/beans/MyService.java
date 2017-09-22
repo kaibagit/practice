@@ -5,7 +5,8 @@ package com.luliru.springboot.beans;
  */
 public class MyService {
 
-    public void hello(){
+    public String hello(){
         System.out.println("hello"+this);
+        return "world";
     }
 }
