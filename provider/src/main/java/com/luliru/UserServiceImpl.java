@@ -47,4 +47,15 @@ public class UserServiceImpl implements UserService {
         System.out.println(user.getUsername());
         return user;
     }
+
+    @Override
+    public User createDynamically(User user, int srouce) {
+        if(srouce < 0){
+            throw new ClientException("客户端异常");
+        }
+        user.setId(Long.valueOf(srouce));
+        user.setBirthday(new Date());
+        System.out.println(user.getUsername());
+        return user;
+    }
 }

@@ -14,4 +14,6 @@ public interface UserService {
     public List<String> fingByIds(Long ... ids);
 
     public User create(User user,int srouce);
+
+    public User createDynamically(User user,int srouce);
 }

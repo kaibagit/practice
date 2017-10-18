@@ -5,6 +5,7 @@ import com.alibaba.dubbo.config.ApplicationConfig;
 import com.alibaba.dubbo.config.ReferenceConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
 import com.alibaba.dubbo.config.utils.ReferenceConfigCache;
+import com.alibaba.dubbo.rpc.service.GenericException;
 import com.alibaba.dubbo.rpc.service.GenericService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +33,7 @@ public class DynamicInvoker {
 
     static String version = null;
 
-    static String serviceMethod = "create";
+    static String serviceMethod = "createDynamically";
 
     public static void main(String[] args) throws Exception{
         ApplicationConfig application = new ApplicationConfig();
@@ -69,9 +70,19 @@ public class DynamicInvoker {
         String[] targetParamType = {"com.luliru.User","int"};
         Object[] targetParamValue = {user,1};
 
-        Object remoteDataSet = genericService.$invoke(serviceMethod, targetParamType,targetParamValue);
+        Object remoteDataMap = genericService.$invoke(serviceMethod, targetParamType,targetParamValue);
 
-        String resultValue = JSON.json(remoteDataSet);
+        String resultValue = JSON.json(remoteDataMap);
         logger.info("最终输出json字符串:" + resultValue);
+
+        //抛出异常
+        targetParamValue = new Object[]{user,-1};
+        try{
+            remoteDataMap = genericService.$invoke(serviceMethod, targetParamType,targetParamValue);
+        }catch (GenericException e){
+            String exceptionClass = e.getExceptionClass();
+            String exceptionMessage = e.getMessage();
+            logger.error("",e);
+        }
     }
 }
