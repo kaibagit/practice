@@ -1,6 +1,10 @@
 package com.kaiba.demo.redis.spring;
 
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.RedisSerializer;
 
 import java.util.Map;
 import java.util.Set;
@@ -67,6 +71,23 @@ public class RedisTemplateApi {
      */
     public String GET(String key) {
         return (String) template.opsForValue().get(key);
+    }
+
+    /**
+     * exist
+     * @param key
+     * @return
+     */
+    public boolean exist(final String key){
+        boolean result = (boolean) template.execute(new RedisCallback<Boolean>() {
+            public Boolean doInRedis(RedisConnection connection)
+                    throws DataAccessException {
+                RedisSerializer<String> serializer = getRedisSerializer();
+                byte[] keyStr = serializer.serialize(key);
+                return connection.exists(keyStr);
+            }
+        });
+        return result;
     }
 
     //Hash（哈希表）
@@ -188,5 +209,9 @@ public class RedisTemplateApi {
      */
     public Set<String> ZRANGE(String key, double start, double stop) {
         return template.opsForZSet().rangeByScore(key, start, stop);
+    }
+
+    public RedisSerializer getRedisSerializer(){
+        return template.getKeySerializer();
     }
 }
