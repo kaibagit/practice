@@ -14,7 +14,7 @@ public class Push {
         push.bind("ipc://fjs");
 
         for (int i = 0; i < 10000000; i++) {
-            push.send("hello".getBytes());
+            push.send(Integer.toString(i));
         }
         push.close();
         context.term();
