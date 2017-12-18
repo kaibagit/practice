@@ -1,4 +1,4 @@
-import com.luliru.UserService;
+import com.luliru.practice.api.provider.UserService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

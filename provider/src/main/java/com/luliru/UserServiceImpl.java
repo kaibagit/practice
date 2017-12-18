@@ -1,6 +1,9 @@
 package com.luliru;
 
-import com.kaiba.BizException;
+import com.luliru.practice.api.dto.User;
+import com.luliru.practice.api.exception.ApiException;
+import com.luliru.practice.api.exception.UnknownSubException;
+import com.luliru.practice.api.provider.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -41,7 +44,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User create(User user,int source) {
+    public User create(User user, int source) {
         user.setId(Long.valueOf(source));
         user.setBirthday(new Date());
         System.out.println(user.getUsername());
@@ -51,11 +54,26 @@ public class UserServiceImpl implements UserService {
     @Override
     public User createDynamically(User user, int srouce) {
         if(srouce < 0){
-            throw new ClientException("客户端异常");
+            try {
+                Thread.sleep(100000L);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            throw new RuntimeException("客户端异常");
         }
         user.setId(Long.valueOf(srouce));
         user.setBirthday(new Date());
         System.out.println(user.getUsername());
         return user;
+    }
+
+    @Override
+    public void throwInnerException(String id) {
+        throw new InnerException();
+    }
+
+    @Override
+    public void throwUnknownSubException() throws ApiException {
+        throw new UnknownSubException();
     }
 }

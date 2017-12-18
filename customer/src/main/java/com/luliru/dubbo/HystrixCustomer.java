@@ -1,12 +1,12 @@
 package com.luliru.dubbo;
 
+import com.luliru.practice.api.provider.UserService;
 import org.apache.thrift.TException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.luliru.UserService;
 import com.luna.demo.service.BizException;
 
 /**

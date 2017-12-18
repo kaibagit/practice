@@ -1,4 +1,4 @@
-package com.luliru;
+package com.luliru.practice.api.dto;
 
 /**
  * Created by luliru on 2017/8/11.

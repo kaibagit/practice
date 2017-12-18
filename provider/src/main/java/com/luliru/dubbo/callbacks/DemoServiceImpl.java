@@ -1,6 +1,6 @@
 package com.luliru.dubbo.callbacks;
 
-import com.luliru.User;
+import com.luliru.practice.api.dto.User;
 import org.springframework.stereotype.Service;
 
 /**

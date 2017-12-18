@@ -1,4 +1,4 @@
-package com.luliru;
+package com.luliru.practice.api.dto;
 
 import java.io.Serializable;
 import java.util.Date;

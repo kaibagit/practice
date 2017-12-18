@@ -16,7 +16,7 @@
 
     <dubbo:protocol name="dubbo" port="20880" />
 
-    <dubbo:service interface="com.luliru.UserService" ref="userServiceImpl"/>
+    <dubbo:service interface="com.luliru.practice.api.provider.UserService" ref="userServiceImpl"/>
 
     <dubbo:provider threads="10" threadpool="cached">
         <dubbo:parameter key="corethreads" value="1" />

@@ -5,6 +5,7 @@ import com.alibaba.dubbo.config.ApplicationConfig;
 import com.alibaba.dubbo.config.ReferenceConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
 import com.alibaba.dubbo.config.utils.ReferenceConfigCache;
+import com.alibaba.dubbo.rpc.RpcException;
 import com.alibaba.dubbo.rpc.service.GenericException;
 import com.alibaba.dubbo.rpc.service.GenericService;
 import org.slf4j.Logger;
@@ -29,7 +30,7 @@ public class DynamicInvoker {
 
     static Integer registryTimeout = 500;
 
-    static String interfaceName = "com.luliru.UserService";
+    static String interfaceName = "com.luliru.practice.api.provider.UserService";
 
     static String version = null;
 
@@ -57,17 +58,17 @@ public class DynamicInvoker {
         genericService = cache.get(reference);
 
         Map<String,Object> home = new HashMap<String,Object>();
-        home.put("class","com.luliru.Home");
+        home.put("class","com.luliru.practice.api.dto.Home");
         home.put("name","hangzhou");
 
         Map<String,Object> user = new HashMap<String, Object>();
-        user.put("class","com.luliru.User");
+        user.put("class","com.luliru.practice.api.dto.User");
         user.put("id",1L);
         user.put("username","luliru");
         user.put("home",home);
 
         // 参数类型
-        String[] targetParamType = {"com.luliru.User","int"};
+        String[] targetParamType = {"com.luliru.practice.api.dto.User","int"};
         Object[] targetParamValue = {user,1};
 
         Object remoteDataMap = genericService.$invoke(serviceMethod, targetParamType,targetParamValue);
@@ -82,6 +83,10 @@ public class DynamicInvoker {
         }catch (GenericException e){
             String exceptionClass = e.getExceptionClass();
             String exceptionMessage = e.getMessage();
+            logger.error("",e);
+        }catch (RpcException e){
+            logger.error("",e);
+        }catch (Exception e){
             logger.error("",e);
         }
     }
