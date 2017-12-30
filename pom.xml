@@ -15,6 +15,7 @@
         <module>demo-web</module>
         <module>microserver</module>
         <module>springboot</module>
+        <module>bigdata</module>
     </modules>
 
     <dependencies>
