@@ -14,7 +14,7 @@ public class UnsafeTest {
     private int value = 2;
 
     public static void main(String[] args) throws Exception {
-        testPark();
+        testPark2();
     }
 
     public static void test() throws Exception {
@@ -107,5 +107,17 @@ public class UnsafeTest {
         unsafe.park(false,sleepNanoTime);
         long end = System.nanoTime();
         System.out.println("testPark sleep:"+(end - begin)/(1000*1000)+"ms");
+    }
+
+    public static void testPark2() throws Exception {
+        Unsafe unsafe = getUnsafe();
+        unsafe.unpark(Thread.currentThread());
+        unsafe.unpark(Thread.currentThread());
+
+        System.out.println("begin park 1");
+        unsafe.park(false,0L);
+        System.out.println("begin park 2");
+        unsafe.park(false,0L);      //死锁，只要经过一次park，则将unpark计数清零
+        System.out.println("finished");
     }
 }
