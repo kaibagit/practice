@@ -1,0 +1,3 @@
+grant codeBase "file:/Users/luliru/IdeaProjects/practice/*" {
+    permission java.io.FilePermission "/Users/luliru/IdeaProjects/practice", "read,write";
+};
