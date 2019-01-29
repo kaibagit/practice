@@ -1,0 +1,30 @@
+Signature-Version: 1.0
+SHA-256-Digest-Manifest-Main-Attributes: 0QuFJPURvTUUsmb2vQcuEPnr7nHET
+ 8kNZYtbRXHRyX8=
+SHA-256-Digest-Manifest: DRu0rVZ2lIjdxSqIcchtPODsaMEQx/+3q/gouZ1UT9E=
+Created-By: 1.8.0_131 (Oracle Corporation)
+
+Name: com/luliru/practice/api/dto/User.class
+SHA-256-Digest: yjudICAesfYo6CtBNOoKRkgXms4t+6q2Sx9n12Y2Ogk=
+
+Name: META-INF/maven/com.kaiba.practice/api/pom.properties
+SHA-256-Digest: RcK5njURD8oKqmJor2CoWJjVisvADgEM1OymlWK6fFo=
+
+Name: META-INF/maven/com.kaiba.practice/api/pom.xml
+SHA-256-Digest: cSoimNQpvtrgCZF6ibArk6w2wKSLkRcC1wUxUR8Y9M8=
+
+Name: com/luliru/practice/api/dto/Home.class
+SHA-256-Digest: NRzkQp22jQS+hYn6J6jGXFQHyfkt0gbNyPJdAn4TEoU=
+
+Name: com/luliru/practice/api/exception/ApiException.class
+SHA-256-Digest: +1XTy7n21miAS7UK2bwLcGOz5ZWuhFzplOG9+8t+Ayw=
+
+Name: com/luliru/practice/api/exception/UnknownSubException.class
+SHA-256-Digest: hhL4StuPCD7j+5b0yb95qzhz9L50RodhDXu8dw4pxDE=
+
+Name: com/kaiba/practice/provider/CacheProvider.class
+SHA-256-Digest: Oy+LEOpjLpIqC1ZBiptQzM15bl0XyqcS3Y908k5pgI0=
+
+Name: com/luliru/practice/api/provider/UserService.class
+SHA-256-Digest: Lvv9IvLUJ3roP7TF7ZEmilRU1GqmmE214Ctjwt5aHng=
+

@@ -1,0 +1,30 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Built-By: luliru
+Created-By: Apache Maven 3.5.0
+Build-Jdk: 1.8.0_131
+
+Name: com/luliru/practice/api/dto/User.class
+SHA-256-Digest: Oy8HOEorS9LRhCaIB3vjPCfjppQ5bysLyqqEzrvwAB8=
+
+Name: META-INF/maven/com.kaiba.practice/api/pom.properties
+SHA-256-Digest: lcf6pBL/o7FSSrNpRAVJjhrCXkrQ4JDl5g7zJHC7OV0=
+
+Name: META-INF/maven/com.kaiba.practice/api/pom.xml
+SHA-256-Digest: F6BVTb1szWU0PuhYCAkl4DaGthFA9Z+mm3bvUk6IPOM=
+
+Name: com/luliru/practice/api/dto/Home.class
+SHA-256-Digest: ID9gMi+u4DVsponTEos2MJSyIperwoz/umuz3GSaJR0=
+
+Name: com/luliru/practice/api/exception/ApiException.class
+SHA-256-Digest: SnMwCmE0FahUkpeZN7DQnEYC9NeTKOU5j8Jn6RLNMOU=
+
+Name: com/luliru/practice/api/exception/UnknownSubException.class
+SHA-256-Digest: 0KLnW01oq5sFwKvGIckUwjCiEMxa4GncqGEsnwXcRCY=
+
+Name: com/kaiba/practice/provider/CacheProvider.class
+SHA-256-Digest: OnWJNFVS+M4IbAzb9+mDp2TylbYGkadDmMU4M9DzUfc=
+
+Name: com/luliru/practice/api/provider/UserService.class
+SHA-256-Digest: jdhHW+a9fy+RxWqSdLOyRew0hP9zVFuivO4yNt4fWc8=
+
