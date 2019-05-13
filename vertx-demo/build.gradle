@@ -25,6 +25,8 @@ dependencies {
     // mysql async client
     compile 'io.vertx:vertx-mysql-postgresql-client:3.5.3'
 
+    compile 'io.vertx:vertx-zookeeper:3.7.0'
+
     compile 'org.slf4j:slf4j-api:1.7.25'
     compile 'ch.qos.logback:logback-classic:1.0.6'
 
