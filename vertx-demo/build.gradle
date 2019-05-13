@@ -11,11 +11,13 @@ repositories {
 }
 
 dependencies {
-    compile 'io.vertx:vertx-core:3.5.3'
-    compile 'io.vertx:vertx-web:3.5.3'
+    compile 'io.vertx:vertx-core:3.7.0'
+    compile 'io.vertx:vertx-web:3.7.0'
+    compile 'io.vertx:vertx-web-client:3.7.0'
 
-    compile 'io.vertx:vertx-rx-java2:3.5.3'
-    compile 'io.vertx:vertx-jdbc-client:3.5.3'
+    compile 'io.vertx:vertx-rx-java2:3.7.0'
+    compile 'io.vertx:vertx-jdbc-client:3.7.0'
+    compile 'io.vertx:vertx-sql-common:3.7.0'
 
     compile 'com.zaxxer:HikariCP:3.1.0'
     compile 'mysql:mysql-connector-java:5.1.40'
