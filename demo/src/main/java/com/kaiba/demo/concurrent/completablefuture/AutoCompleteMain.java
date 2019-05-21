@@ -1,4 +1,4 @@
-package com.kaiba.demo.concurrent.future;
+package com.kaiba.demo.concurrent.completablefuture;
 
 import java.util.concurrent.CompletableFuture;
 

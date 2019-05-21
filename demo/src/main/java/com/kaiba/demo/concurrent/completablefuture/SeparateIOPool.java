@@ -1,4 +1,4 @@
-package com.kaiba.demo.concurrent.future;
+package com.kaiba.demo.concurrent.completablefuture;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
