@@ -1,0 +1,18 @@
+class ReleaseVersionTask extends DefaultTask {
+    //通过注解声明任务的输入和输出
+    @Input Boolean release
+    @OutputFile String destFile
+
+    //通过注解声明要执行的任务
+    @TaskAction
+    void start() {
+        println "release:$release destFile:$destFile"
+    }
+}
+
+//定义一个ReleaseVersionTask类型的任务
+task mytask(type: ReleaseVersionTask) {
+    //设定任务属性
+    release = true
+    destFile = "test.txt"
+}
