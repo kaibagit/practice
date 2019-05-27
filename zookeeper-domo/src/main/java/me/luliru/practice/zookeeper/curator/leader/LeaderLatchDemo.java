@@ -1,4 +1,4 @@
-package com.luliru.test.zk.curator.leader;
+package me.luliru.practice.zookeeper.curator.leader;
 
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;

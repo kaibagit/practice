@@ -1,4 +1,4 @@
-package com.luliru.test.zk.curator;
+package me.luliru.practice.zookeeper.curator;
 
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;

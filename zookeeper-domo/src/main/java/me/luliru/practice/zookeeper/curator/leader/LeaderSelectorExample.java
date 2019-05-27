@@ -1,14 +1,16 @@
-package com.luliru.test.zk.curator.leader;
+package me.luliru.practice.zookeeper.curator.leader;
 
 /**
  * Created by luliru on 2016/9/19.
  */
+
 import com.google.common.collect.Lists;
-import org.apache.curator.utils.CloseableUtils;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.curator.test.TestingServer;
+import org.apache.curator.utils.CloseableUtils;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.List;

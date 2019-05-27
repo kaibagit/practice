@@ -1,4 +1,4 @@
-package com.luliru.test.zk.curator;
+package me.luliru.practice.zookeeper.curator;
 
 /**
  * Created by luliru on 2016/9/19.
