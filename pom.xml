@@ -16,6 +16,7 @@
         <module>microserver</module>
         <module>springboot</module>
         <module>bigdata</module>
+        <module>rabbitmq-demo</module>
     </modules>
 
     <dependencies>
