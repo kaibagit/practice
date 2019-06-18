@@ -1,4 +1,6 @@
-package com.kaiba.demo.util;
+package com.kaiba.demo.util.slidingwindow;
+
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -7,6 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author shimig
  *
  */
+@Slf4j
 public class SlidingWindow {
 
     /* 循环队列 */
@@ -119,6 +122,15 @@ public class SlidingWindow {
     private void clearBetween(int fromIndex, int toIndex) {
         for (int index = (fromIndex + 1) % timeSliceSize; index != toIndex; index = (index + 1) % timeSliceSize) {
             timeSlices[index].set(0);
+        }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        SlidingWindow slidingWindow = new SlidingWindow(1000,10);
+        slidingWindow.initTimeSlices();
+        while(true){
+            log.info(String.valueOf(slidingWindow.allow(5)));
+            Thread.sleep(1000L);
         }
     }
 
