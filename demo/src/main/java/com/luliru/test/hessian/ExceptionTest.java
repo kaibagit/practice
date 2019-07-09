@@ -18,15 +18,15 @@ public class ExceptionTest {
         NullPointerException e = new NullPointerException("This is a demo");
 
         //序列化
-        FileOutputStream os = new FileOutputStream("exception.out");
+        FileOutputStream os = new FileOutputStream("exception.txt");
         HessianOutput ho = new HessianOutput(os);
         ho.writeObject(e);
 
         //反序列化
-        FileInputStream is = new FileInputStream("exception.out");
+        FileInputStream is = new FileInputStream("exception.txt");
         HessianInput hi = new HessianInput(is);
-        Object o = hi.readObject();
+        Exception o = (Exception)hi.readObject();
         System.out.println(o);
-
+        o.printStackTrace();
     }
 }
