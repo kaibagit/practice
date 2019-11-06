@@ -1,8 +1,15 @@
-package com.luliru.paractice.camel.demo;
+package com.luliru.paractice.camel.demo.routebuilder;
 
+import org.apache.camel.Exchange;
+import org.apache.camel.Message;
+import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.http.common.HttpMessage;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.model.ModelCamelContext;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.InputStream;
 
 /**
  * Created by luliru on 2017/11/15.
@@ -38,5 +45,24 @@ public class HelloRouteBuilder extends RouteBuilder {
         synchronized (HelloRouteBuilder.class) {
             HelloRouteBuilder.class.wait();
         }
+    }
+}
+
+/**
+ * 这个处理器用来完成输入的json格式的转换
+ * @author yinwenjie
+ */
+class HelloHttpProcessor implements Processor {
+
+    public void process(Exchange exchange) throws Exception {
+        HttpMessage message = (HttpMessage)exchange.getIn();
+        InputStream bodyStream =  (InputStream)message.getBody();
+
+        HttpServletRequest request = message.getRequest();
+
+        String reply = request.getRemoteHost()+":"+request.getRemotePort();
+
+        Message outMessage = exchange.getOut();
+        outMessage.setBody(reply);
     }
 }

@@ -1,5 +1,6 @@
-package com.luliru.paractice.camel.demo;
+package com.luliru.paractice.camel.demo.router;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.Message;
@@ -12,12 +13,11 @@ import org.apache.camel.model.MulticastDefinition;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
-
 /**
  * 测试组播路由
  * @author yinwenjie
  */
+@Slf4j
 public class StaticRecipientListRouter extends RouteBuilder {
 
     @Override
@@ -48,7 +48,7 @@ public class StaticRecipientListRouter extends RouteBuilder {
 
         public void process(Exchange exchange) throws Exception {
             Message message = exchange.getIn();
-            LOGGER.info("OtherProcessor中的exchange" + exchange);
+            log.info("OtherProcessor中的exchange" + exchange);
             String body = message.getBody().toString();
 
             // 存入到exchange的out区域

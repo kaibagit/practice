@@ -1,4 +1,4 @@
-package com.luliru.paractice.camel.demo;
+package com.luliru.paractice.camel.demo.router;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangePattern;
