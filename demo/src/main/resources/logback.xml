@@ -32,7 +32,7 @@
         </encoder>
     </appender>
 
-    <root level="ERROR">
+    <root level="info">
         <appender-ref ref="stdout" />
         <appender-ref ref="ERROR-APPENDER" />
     </root>
