@@ -3,6 +3,8 @@ package com.kaiba.demo.concurrent.disruptor;
 import com.lmax.disruptor.*;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.ThreadFactory;
 
@@ -11,6 +13,9 @@ import java.util.concurrent.ThreadFactory;
  * Created by luliru on 2019-05-31.
  */
 public class DisruptorTest {
+
+    private final static Logger logger = LoggerFactory.getLogger(DisruptorTest.class);
+
     /**
      * 消息事件类
      */
@@ -65,7 +70,7 @@ public class DisruptorTest {
     public static class MessageEventHandler implements EventHandler<MessageEvent> {
         @Override
         public void onEvent(MessageEvent messageEvent, long l, boolean b) throws Exception {
-            System.out.println(messageEvent.getMessage());
+            logger.info(messageEvent.getMessage());
         }
     }
 
