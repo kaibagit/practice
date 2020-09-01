@@ -1,4 +1,4 @@
-package com.kaiba.demo.concurrent;
+package com.kaiba.demo.concurrent.queue;
 
 import java.util.concurrent.Delayed;
 import java.util.concurrent.TimeUnit;
@@ -6,13 +6,13 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by luliru on 2017/3/13.
  */
-class DelayedElement implements Delayed {
+class DelayElement implements Delayed {
 
     private final long delayId;
 
     private final long expireMillisecond;
 
-    public DelayedElement(long delay) {
+    public DelayElement(long delay) {
         this.delayId = delay;
         expireMillisecond = System.currentTimeMillis() + delay;
     }
@@ -24,7 +24,7 @@ class DelayedElement implements Delayed {
 
     @Override
     public int compareTo(Delayed o) {
-        DelayedElement element = (DelayedElement)o;
+        DelayElement element = (DelayElement)o;
         return (int) (this.expireMillisecond - element.expireMillisecond);
     }
 

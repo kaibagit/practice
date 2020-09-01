@@ -1,4 +1,4 @@
-package com.kaiba.demo.concurrent;
+package com.kaiba.demo.concurrent.queue;
 
 import java.util.PriorityQueue;
 
