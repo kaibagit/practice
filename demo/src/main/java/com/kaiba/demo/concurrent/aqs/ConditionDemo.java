@@ -1,4 +1,4 @@
-package com.kaiba.demo.concurrent;
+package com.kaiba.demo.concurrent.aqs;
 
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingDeque;

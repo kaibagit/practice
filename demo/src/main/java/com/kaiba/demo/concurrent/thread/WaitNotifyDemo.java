@@ -1,6 +1,6 @@
 package com.kaiba.demo.concurrent.thread;
 
-import com.kaiba.demo.concurrent.ConditionDemo;
+import com.kaiba.demo.concurrent.aqs.ConditionDemo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

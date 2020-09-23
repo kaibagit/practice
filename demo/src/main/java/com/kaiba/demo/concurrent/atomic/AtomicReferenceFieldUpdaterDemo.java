@@ -1,4 +1,4 @@
-package com.kaiba.demo.concurrent;
+package com.kaiba.demo.concurrent.atomic;
 
 import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 
