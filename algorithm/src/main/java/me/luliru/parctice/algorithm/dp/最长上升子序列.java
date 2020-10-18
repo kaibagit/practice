@@ -11,7 +11,7 @@ public class 最长上升子序列 {
     }
 
     /**
-     * 动态规划（贪心）+二分查找
+     * 贪心+二分查找
      * @param nums
      * @return
      */
@@ -26,21 +26,38 @@ public class 最长上升子序列 {
                 dp[dpMaxIndex] = currVal;
             } else {
                 // 找到比currVal小的最大元素
-                int left=0;
-                int right = dpMaxIndex;
-                while (left < right) {
-                    int mid = left + (right-left) / 2;
-                    if(dp[mid] < currVal) {
-
-                    }else if(dp[mid] >= currVal) {
-
-                    }
-                }
-                dp[left] = currVal;
+                int index = search(dp,dpMaxIndex+1,currVal);
+                dp[index] = currVal;
             }
         }
 
         return dpMaxIndex+1;
+    }
+
+    /**
+     * 我们维护一个slow列表表示nums[]中的最慢上升序列，遍历nums，对于一个nums[i]，若：
+     * nums[i] > slow的最后一个元素（即大于slow中的所有元素），就将加入到slow的最后面
+     * nums[i] <= slow的最后一个元素，我们就查找slow列表中第一个大于等于nums[i]的数并替换它。由于非严格单调递增的序列，我们很容易的发现，可以使用二分法来查找这个数。这一步的时间复杂度便降到了log(n)
+     *
+     * @param arr
+     * @param length
+     * @param target
+     * @return
+     */
+    private int search(int[] arr,int length,int target) {
+        int left =0;
+        int right = length;
+        while (left < right) {
+            int mid = left + (right-left) /2;
+            if(arr[mid] < target) {
+                left = mid+1;
+            }else if(arr[mid] > target) {
+                right = mid;
+            }else if(arr[mid] == target) {
+                left = mid+1;
+            }
+        }
+        return right -1;
     }
 
     /**
