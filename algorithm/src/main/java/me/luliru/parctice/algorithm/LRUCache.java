@@ -27,12 +27,28 @@ public class LRUCache {
 //        System.out.println(cache.get(3));
 //        System.out.println(cache.get(4));
 
-        LRUCache cache = new LRUCache(1);
-        cache.put(2,1);
-        System.out.println(cache.get(2));
-        cache.put(3,2);
-        System.out.println(cache.get(2));
-        System.out.println(cache.get(3));
+//        LRUCache cache = new LRUCache(1);
+//        cache.put(2,1);
+//        System.out.println(cache.get(2));
+//        cache.put(3,2);
+//        System.out.println(cache.get(2));
+//        System.out.println(cache.get(3));
+
+        LRUCache cache = new LRUCache(3);
+        cache.put(1,1);
+        cache.put(2,2);
+        cache.put(3,3);
+        cache.put(4,4);
+        cache.get(4);
+        cache.get(3);
+        cache.get(2);
+        cache.get(1);
+        cache.put(5,5);
+        cache.get(1);
+        cache.get(2);
+        cache.get(3);
+        cache.get(4);
+        cache.get(5);
     }
 
     private int capacity;
@@ -48,66 +64,54 @@ public class LRUCache {
     public LRUCache(int capacity) {
         map = new HashMap<>(capacity);
         this.capacity = capacity;
+        head = new Node(0,0);
+        tail = new Node(-1,-1);
+        head.next = tail;
+        tail.pre = head;
     }
 
     public int get(int key) {
-        Node node = map.get(key);
-        if(node == null) {
+        Node existedNode = map.get(key);
+        if(existedNode == null) {
             return -1;
         }
-        moveToHead(node);
-        return node.value;
+        removeFromLink(existedNode);
+        addToHead(existedNode);
+        return existedNode.value;
     }
 
     public void put(int key, int value) {
-        Node node = map.get(key);
-        if(node == null) {
-            node = new Node(key,value);
-            add(node);
+        Node existedNode = map.get(key);
+        if(existedNode == null) {
+            Node node = new Node(key,value);
             map.put(key,node);
-        }else {
-            node.value = value;
-            moveToHead(node);
-        }
-    }
-
-    private void add(Node node) {
-        if(head == null) {
-            head = node;
-            tail = node;
+            addToHead(node);
+            size++;
         } else {
-            if(capacity == size) {
-                map.remove(tail.key);
-                tail = tail.pre;
-                if(tail != null) {
-                    tail.next = null;
-                }
-                size--;
-            }
-            head.pre = node;
-            node.next = head;
-            head = node;
+            removeFromLink(existedNode);
+            existedNode.value = value;
+            addToHead(existedNode);
         }
-        size++;
+        if(size > capacity) {
+            map.remove(tail.pre.key);
+            removeFromLink(tail.pre);
+            size--;
+        }
     }
 
-    private void moveToHead(Node node) {
-        Node preNode = node.pre;
-        Node nextNode = node.next;
-        if(preNode != null) {
-            preNode.next = nextNode;
-        }
-        if(nextNode != null) {
-            nextNode.pre = preNode;
-        }
-        // Node正好在队尾，且不止node一个节点
-        if(tail == node && preNode != null) {
-            tail = preNode;
-        }
-        head.pre = node;
-        node.next = head;
-        node.pre = null;
-        head = node;
+    private void addToHead(Node node) {
+        node.pre = head;
+        node.next = head.next;
+
+        head.next.pre = node;
+        head.next = node;
+    }
+
+    private void removeFromLink(Node node) {
+        Node pre = node.pre;
+        Node next = node.next;
+        pre.next = next;
+        next.pre = pre;
     }
 
     static class Node{

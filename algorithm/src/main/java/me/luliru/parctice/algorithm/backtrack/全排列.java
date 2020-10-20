@@ -1,5 +1,6 @@
 package me.luliru.parctice.algorithm.backtrack;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,8 +10,50 @@ import java.util.List;
  */
 public class 全排列 {
 
-    List<List<Integer>> res = new LinkedList<>();
+    List<List<Integer>> res = new ArrayList<>();
 
+    /**
+     * 第二次编写
+     * @param nums
+     * @return
+     */
+    public List<List<Integer>> permute_v2(int[] nums) {
+        LinkedList<Integer> path = new LinkedList<>();
+        backtrace_v2(path,nums);
+        return res;
+    }
+
+    private void backtrace_v2(LinkedList<Integer> path, int[] nums) {
+        if(path.size() == nums.length) {
+            List<Integer> sol = new ArrayList<>(path);
+            res.add(sol);
+            return;
+        }
+
+        for(int i=0;i<nums.length;i++) {
+            int select = nums[i];
+            // 剪枝
+            if(path.contains(select)) {
+                continue;
+            }
+
+            // 选择
+            path.add(select);
+
+            // 深度遍历
+            backtrace_v2(path,nums);
+
+            // 撤销选择
+            path.removeLast();
+        }
+    }
+
+
+    /**
+     * 第一次编写
+     * @param nums
+     * @return
+     */
     public List<List<Integer>> permute(int[] nums) {
         // 记录「路径」
         LinkedList<Integer> track = new LinkedList<>();
