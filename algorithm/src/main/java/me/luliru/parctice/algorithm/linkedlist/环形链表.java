@@ -7,17 +7,20 @@ package me.luliru.parctice.algorithm.linkedlist;
 public class 环形链表 {
 
     public boolean hasCycle(ListNode head) {
-        ListNode fast = head;
+        if (head == null || head.next == null) {
+            return false;
+        }
         ListNode slow = head;
-        int count = 0;
-        while(fast != null) {
-            fast = fast.next;
-            count++;
-            if(fast == slow) {
+        ListNode fast = head.next;
+        while (fast != null) {
+            if (fast == slow) {
                 return true;
             }
-            if((count & 1) == 0){
-                slow = slow.next;
+            slow = slow.next;
+            if (fast.next != null) {
+                fast = fast.next.next;
+            } else {
+                fast = null;
             }
         }
         return false;

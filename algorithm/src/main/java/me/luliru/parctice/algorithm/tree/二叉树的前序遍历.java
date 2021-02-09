@@ -1,29 +1,31 @@
 package me.luliru.parctice.algorithm.tree;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class 二叉树的前序遍历 {
 
     public List<Integer> preorderTraversal(TreeNode root) {
-        List<Integer> result = new LinkedList<>();
-        LinkedList<TreeNode> stack = new LinkedList<>();
+        List<Integer> res = new ArrayList<>();
 
-        if(root == null) {
-            return result;
+        if (root == null) {
+            return res;
         }
-        stack.addLast(root);
 
-        while(!stack.isEmpty()) {
-            TreeNode node = stack.pollLast();
-            result.add(node.val);
+        LinkedList<TreeNode> stack = new LinkedList<>();
+        stack.addLast(root);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            res.add(node.val);
             if(node.right != null) {
-                stack.addLast(node.right);
+                stack.push(node.right);
             }
             if(node.left != null) {
-                stack.addLast(node.left);
+                stack.push(node.left);
             }
         }
-        return result;
+
+        return res;
     }
 }

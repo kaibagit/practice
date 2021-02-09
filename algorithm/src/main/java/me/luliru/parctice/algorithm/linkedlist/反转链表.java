@@ -29,6 +29,25 @@ public class 反转链表 {
      * @return
      */
     public ListNode reverseList(ListNode head) {
+        ListNode pre = null;
+        ListNode curr = head.next;
+        while (curr != null) {  //当curr=null退出循环，前一个节点就是新的head
+            ListNode next = curr.next;
+            curr.next = pre;
+
+            // 下一轮
+            pre = curr;
+            curr = next;
+        }
+        return pre;
+    }
+
+    /**
+     * 栈
+     * @param head
+     * @return
+     */
+    public ListNode reverseList_stack(ListNode head) {
         if(head == null) {
             return null;
         }
@@ -72,11 +91,5 @@ public class 反转链表 {
         oriNext.next = node;
         node.next = null;
         return newHead;
-    }
-
-    public class ListNode {
-        int val;
-        ListNode next;
-        ListNode(int x) { val = x; }
     }
 }
