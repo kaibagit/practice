@@ -1,0 +1,43 @@
+package me.luliru.practice.ladp;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+/**
+ * me.luliru.practice.ladp.ApplicationTests
+ * Created by luliru on 5/12/21.
+ */
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = Application.class)
+public class ApplicationTests {
+
+    @Autowired
+    private PersonRepository personRepository;
+
+    @Test
+    public void findAll() throws Exception {
+
+        personRepository.findAll().forEach(p -> {
+            System.out.println(p);
+        });
+
+    }
+
+    @Test
+    public void save() throws Exception {
+        Person person = new Person();
+        person.setUid("uid:1");
+        person.setSuerName("AAA");
+        person.setCommonName("aaa");
+        person.setUserPassword("123456");
+        personRepository.save(person);
+
+        personRepository.findAll().forEach(p -> {
+            System.out.println(p);
+        });
+    }
+
+}
