@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.concurrent.Future;
 
 /**
+ * 批量执行请求(Request Collapsing)
  * Created by luliru on 2017/3/18.
  */
 public class CollapseEchoHystrixCommand extends HystrixCollapser<List<Long>, String, Integer> {
@@ -18,7 +19,7 @@ public class CollapseEchoHystrixCommand extends HystrixCollapser<List<Long>, Str
     private Integer input;
 
     public CollapseEchoHystrixCommand(Integer input) {
-        super(HystrixCollapser.Setter
+        super(Setter
                 .withCollapserKey(HystrixCollapserKey.Factory.asKey("Echo Collapse")));
         this.input = input;
     }

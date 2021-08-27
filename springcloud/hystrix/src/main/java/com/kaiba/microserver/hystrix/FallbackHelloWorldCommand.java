@@ -14,7 +14,7 @@ public class FallbackHelloWorldCommand extends HystrixCommand<String> {
     private final String name;
 
     public FallbackHelloWorldCommand(String name) {
-        super(HystrixCommand.Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("HelloWorldGroup"))
+        super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("HelloWorldGroup"))
                 /* 配置依赖超时时间,500毫秒*/
                 .andCommandPropertiesDefaults(HystrixCommandProperties.Setter().withExecutionTimeoutInMilliseconds(500)));
         this.name = name;

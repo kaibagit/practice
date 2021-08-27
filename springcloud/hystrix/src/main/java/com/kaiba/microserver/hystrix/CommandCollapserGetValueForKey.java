@@ -1,12 +1,12 @@
 package com.kaiba.microserver.hystrix;
 
+import com.netflix.hystrix.*;
+import com.netflix.hystrix.strategy.concurrency.HystrixRequestContext;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.Future;
-
-import com.netflix.hystrix.*;
-import com.netflix.hystrix.strategy.concurrency.HystrixRequestContext;
 
 /**
  * 命令调用合并:HystrixCollapser<br>

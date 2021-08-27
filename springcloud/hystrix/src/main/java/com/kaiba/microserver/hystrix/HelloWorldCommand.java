@@ -2,6 +2,7 @@ package com.kaiba.microserver.hystrix;
 
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
+import lombok.extern.slf4j.Slf4j;
 import rx.Observable;
 import rx.Observer;
 import rx.functions.Action1;
@@ -12,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by luliru on 2017/2/21.
  */
+@Slf4j
 public class HelloWorldCommand extends HystrixCommand<String> {
     private final String name;
     public HelloWorldCommand(String name) {
@@ -22,6 +24,7 @@ public class HelloWorldCommand extends HystrixCommand<String> {
     @Override
     protected String run() {
         // 依赖逻辑封装在run()方法中
+        log.info("Hello {} thread: {}", name, Thread.currentThread().getName());
         return "Hello " + name +" thread:" + Thread.currentThread().getName();
     }
     //调用实例
@@ -31,15 +34,17 @@ public class HelloWorldCommand extends HystrixCommand<String> {
         HelloWorldCommand helloWorldCommand = new HelloWorldCommand("Synchronous-hystrix");
         //使用execute()同步调用代码,效果等同于:helloWorldCommand.queue().get();
         String result = helloWorldCommand.execute();
-        System.out.println("result=" + result);
+        log.info("result=" + result);
+
 
         helloWorldCommand = new HelloWorldCommand("Asynchronous-hystrix");
         //异步调用,可自由控制获取结果时机,
         Future<String> future = helloWorldCommand.queue();
         //get操作不能超过command定义的超时时间,默认:1秒
         result = future.get(100, TimeUnit.MILLISECONDS);
-        System.out.println("result=" + result);
-        System.out.println("mainThread=" + Thread.currentThread().getName());
+        log.info("result=" + result);
+        log.info("mainThread=" + Thread.currentThread().getName());
+
 
 
         //注册观察者事件拦截
@@ -57,18 +62,18 @@ public class HelloWorldCommand extends HystrixCommand<String> {
             @Override
             public void onCompleted() {
                 // onNext/onError完成之后最后回调
-                System.out.println("execute onCompleted");
+                log.info("execute onCompleted");
             }
             @Override
             public void onError(Throwable e) {
                 // 当产生异常时回调
-                System.out.println("onError " + e.getMessage());
+                log.info("onError " + e.getMessage());
                 e.printStackTrace();
             }
             @Override
             public void onNext(String v) {
                 // 获取结果后回调
-                System.out.println("onNext: " + v);
+                log.info("onNext: " + v);
             }
         });
 

@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>monitoring</module>
+        <module>hystrix</module>
     </modules>
 
 

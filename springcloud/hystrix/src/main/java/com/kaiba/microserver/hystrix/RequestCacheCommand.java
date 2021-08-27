@@ -3,7 +3,6 @@ package com.kaiba.microserver.hystrix;
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
 import com.netflix.hystrix.strategy.concurrency.HystrixRequestContext;
-import org.springframework.util.Assert;
 
 /**
  * Created by luliru on 2017/2/21.

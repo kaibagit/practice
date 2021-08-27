@@ -13,7 +13,7 @@ public class CommandFacadeWithPrimarySecondary extends HystrixCommand<String> {
     private final static DynamicBooleanProperty usePrimary = DynamicPropertyFactory.getInstance().getBooleanProperty("primarySecondary.usePrimary", true);
     private final int id;
     public CommandFacadeWithPrimarySecondary(int id) {
-        super(HystrixCommand.Setter
+        super(Setter
                 .withGroupKey(HystrixCommandGroupKey.Factory.asKey("SystemX"))
                 .andCommandKey(HystrixCommandKey.Factory.asKey("PrimarySecondaryCommand"))
                 .andCommandPropertiesDefaults(
