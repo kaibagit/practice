@@ -13,6 +13,171 @@ public class LC5_最长回文子串 {
 
 
     /**
+     * 暴力求解
+     * @param s
+     * @return
+     */
+    public String longestPalindrome_baoli(String s) {
+        int beginOfLongest = 0;
+        int endOfLongest = 0;
+        int longest = 0;
+
+        for (int begin = 0; begin < s.length(); begin++) {
+            for (int end = begin; end < s.length(); end++) {
+                if (isPalindrome(s, begin, end)) {
+                    int len = end - begin + 1;
+                    if (len > longest) {
+                        longest = len;
+                        beginOfLongest = begin;
+                        endOfLongest = end;
+                    }
+                }
+            }
+        }
+
+        return s.substring(beginOfLongest, endOfLongest + 1);
+    }
+    private boolean isPalindrome(String s, int begin, int end) {
+        while (begin < end) {
+            if (s.charAt(begin) != s.charAt(end)) {
+                return false;
+            }
+            begin++;
+            end--;
+        }
+        return true;
+    }
+
+    /**
+     * 中心扩散法
+     * @param s
+     * @return
+     */
+    public String longestPalindrome(String s) {
+        int n = s.length();
+
+        int longest = 1;
+        int start = 0;
+
+        for (int i = 0; i < n - 1; i++) {   //第0位和末尾，无法再往外扩散，所以取[1,n-1)，但是考虑到[b,b]的情况，所以范围应该为[0,n-1)
+            // 奇数长度回文
+            int left = leftAboundary(s, i, i);
+            // 左边不包含中心点长度：i - left，总长度为 2 * (i - left) + 1，即2 * i - 2 * left + 1
+            int len = 2 * i - 2 * left + 1;
+            if (len > longest) {
+                start = left;
+                longest = len;
+            }
+
+            // 偶数长度回文
+            left = leftAboundary(s, i, i + 1);
+            // 左边包含中心点长度：i - left + 1，总长度为 2 * (i - left + 1)，即2 * i - 2 * left + 2
+            len = 2 * i - 2 * left + 2;
+            if (len > longest) {
+                start = left;
+                longest = len;
+            }
+        }
+
+        return s.substring(start, start + longest);
+    }
+    private int leftAboundary(String s, int left, int right) {
+        int l = left;
+        int r = right;
+        while (l >= 0 && r < s.length()) {  // 退出循环条件，l、r越界，或者l、r的两个字符不相等
+            if (s.charAt(l) != s.charAt(r)) {
+                break;
+            }
+
+            l--;
+            r++;
+        }
+
+        // 符合条件的左边界为 l + 1，符合条件的右边界为 r - 1
+        return l + 1;
+    }
+
+    /**
+     * 中心扩散法
+     * @param s
+     * @return
+     */
+    public String longestPalindrome_my(String s) {
+        int n = s.length();
+
+        int beginOfLongest = 0;
+        int endOfLongest = 0;
+        int longest = 1;
+
+        for (int i = 0; i < n; i++) {
+            int next = i + 1;
+            // 中心点为2个字符
+            if (next < n && s.charAt(i) == s.charAt(next)) {
+                if (longest == 1) {
+                    beginOfLongest = i;
+                    endOfLongest = next;
+                    longest = 2;
+                }
+
+                int left = i - 1;
+                int right = next + 1;
+                while (left >= 0 && right < n) {
+                    if (s.charAt(left) != s.charAt(right)) {
+                        break;
+                    }
+
+                    int len = right - left + 1;
+                    if (len > longest) {
+                        longest = len;
+                        beginOfLongest = left;
+                        endOfLongest = right;
+                    }
+
+                    left--;
+                    right++;
+                }
+            }
+
+            // 中心点为1个字符
+            int left = i - 1;
+            int right = i + 1;
+            while (left >= 0 && right < n) {
+                if (s.charAt(left) != s.charAt(right)) {
+                    break;
+                }
+
+                int len = right - left + 1;
+                if (len > longest) {
+                    longest = len;
+                    beginOfLongest = left;
+                    endOfLongest = right;
+                }
+
+                left--;
+                right++;
+            }
+        }
+
+        return s.substring(beginOfLongest, endOfLongest + 1);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
      * 暴力法
      * @param s
      * @return
@@ -53,6 +218,7 @@ public class LC5_最长回文子串 {
         for (int j = 0; j < n; ++j) {
             for (int i = 0; i <= j; ++i) {
                 if (s.charAt(i) == s.charAt(j)) {
+                    // 只有1个字符、2个字符的时候，不需要状态转移
                     if (i == j || i + 1 == j || dp[i + 1][j - 1]) {     // 只有一个字符 || 只有2个字符 || 大于2个字符
                         dp[i][j] = true;
                         if (end - start < j - i) {

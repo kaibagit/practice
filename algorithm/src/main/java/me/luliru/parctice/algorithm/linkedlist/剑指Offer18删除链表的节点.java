@@ -7,6 +7,69 @@ package me.luliru.parctice.algorithm.linkedlist;
 public class 剑指Offer18删除链表的节点 {
 
     public ListNode deleteNode(ListNode head, int val) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+
+        ListNode pre = dummy;
+        ListNode curr = head;
+        while (curr != null) {
+            ListNode next = curr.next;
+            if (curr.val == val) {
+                pre.next = next;
+                break;
+            } else {
+                pre = curr;
+            }
+
+            curr = next;
+        }
+
+        return dummy.next;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public ListNode deleteNode_old(ListNode head, int val) {
         if (head == null) {
             return head;
         }

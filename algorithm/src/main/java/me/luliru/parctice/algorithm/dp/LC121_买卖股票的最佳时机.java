@@ -7,8 +7,11 @@ package me.luliru.parctice.algorithm.dp;
 public class LC121_买卖股票的最佳时机 {
 
     public static void main(String[] args) {
-        new LC121_买卖股票的最佳时机().maxProfit(new int[]{7,1,5,3,6,4});
+        new LC121_买卖股票的最佳时机().maxProfit_210302_v2(new int[]{7,1,5,3,6,4});
     }
+
+
+
 
     /**
      * 暴力求解
@@ -64,7 +67,7 @@ public class LC121_买卖股票的最佳时机 {
      * @param prices
      * @return
      */
-    public int maxProfit(int[] prices) {
+    public int maxProfit_210302_v3(int[] prices) {
         if (prices.length < 2) {
             return 0;
         }
