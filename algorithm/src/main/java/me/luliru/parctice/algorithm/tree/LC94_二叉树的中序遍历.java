@@ -4,7 +4,58 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class 二叉树的中序遍历 {
+public class LC94_二叉树的中序遍历 {
+
+    /**
+     * 栈，左边界分割
+     * @param root
+     * @return
+     */
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> output = new LinkedList<>();
+
+        if (root == null) {
+            return output;
+        }
+
+        LinkedList<TreeNode> stack = new LinkedList<>();
+        TreeNode node = root;
+        while (node != null || !stack.isEmpty()) {
+            while (node != null) {  //退出条件：node == null
+                stack.push(node);
+                node = node.left;
+            }
+
+            node = stack.pop();
+            output.add(node.val);
+            node = node.right;
+        }
+
+
+        return output;
+    }
+
+    /**
+     * 递归
+     * @param root
+     * @return
+     */
+    public List<Integer> inorderTraversal_recurse(TreeNode root) {
+        List<Integer> output = new LinkedList<>();
+
+        inorder(root, output);
+
+        return output;
+    }
+    private void inorder(TreeNode head, List<Integer> output) {
+        if (head == null) {
+            return;
+        }
+
+        inorder(head.left, output);
+        output.add(head.val);
+        inorder(head.right, output);
+    }
 
     public List<Integer> postorderTraversal_V2(TreeNode root) {
         List<Integer> result = new LinkedList<>();
@@ -55,7 +106,7 @@ public class 二叉树的中序遍历 {
         return result;
     }
 
-    public List<Integer> inorderTraversal(TreeNode root) {
+    public List<Integer> inorderTraversal_old(TreeNode root) {
         List<Integer> res = new ArrayList<Integer>();
         TreeNode node = root;
         TreeNode predecessor = null;

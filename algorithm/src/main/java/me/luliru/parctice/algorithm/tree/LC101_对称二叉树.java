@@ -1,5 +1,8 @@
 package me.luliru.parctice.algorithm.tree;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
 
  101. 对称二叉树
@@ -28,13 +31,81 @@ package me.luliru.parctice.algorithm.tree;
 
 
  */
-public class 对称二叉树 {
+public class LC101_对称二叉树 {
 
     public static void main(String[] args) {
 
     }
 
+    /**
+     * 迭代
+     * @param root
+     * @return
+     */
     public boolean isSymmetric(TreeNode root) {
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            TreeNode n = queue.poll();
+            TreeNode m = queue.poll();
+
+            if (n == null && m == null) {
+                continue;
+            }
+
+            if (n == null || m == null || n.val != m.val) {
+                return false;
+            }
+
+            queue.offer(n.left);
+            queue.offer(m.right);
+
+            queue.offer(n.right);
+            queue.offer(m.left);
+        }
+
+        return true;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public boolean isSymmetric_old(TreeNode root) {
         if(root == null) {
             return true;
         }

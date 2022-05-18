@@ -1,15 +1,206 @@
 package me.luliru.parctice.algorithm.tree;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 二叉树的最近公共祖先
  * Created by luliru on 2021/2/12.
  */
 public class 剑指Offer68_二叉树的最近公共祖先 {
+
+
+    public static void main(String[] args) {
+        TreeNode n5 = new TreeNode(5);
+        TreeNode n1 = new TreeNode(1);
+        TreeNode n3 = new TreeNode(3);
+        n3.left = n5;
+        n3.right = n1;
+
+        new 剑指Offer68_二叉树的最近公共祖先().lowestCommonAncestor_backtracking(n3, n5, n1);
+    }
+
+    /**
+     * 递归
+     * @param root
+     * @param p
+     * @param q
+     * @return
+     */
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        return dfs(root, p, q);
+    }
+
+    private TreeNode dfs(TreeNode head, TreeNode p, TreeNode q) {
+        if (head == null) {
+            return null;
+        }
+
+        if (head.val == p.val || head.val == q.val) {
+            return head;
+        }
+
+        TreeNode leftResult = dfs(head.left, p, q);
+        TreeNode rightResult = dfs(head.right, p, q);
+
+        if (leftResult == null) {
+            return rightResult;
+        }
+
+        if (rightResult == null) {
+            return leftResult;
+        }
+
+        return head;
+    }
+
+
+    /**
+     * 存储父节点
+     * @param root
+     * @param p
+     * @param q
+     * @return
+     */
+    public TreeNode lowestCommonAncestor_storeParent(TreeNode root, TreeNode p, TreeNode q) {
+        // 1、构建头节点map
+        Map<TreeNode, TreeNode> parentMap = new HashMap<>();
+        buildParentMap(root, parentMap);
+
+        // 2、记录p的路径
+        Set<TreeNode> pathSet = new HashSet<>();
+        TreeNode node = p;
+        while (node != null) {
+            pathSet.add(node);
+            node = parentMap.get(node);
+        }
+
+        // 3、遍历q的路径，查找与p重叠的部分
+        node = q;
+        while (node != null) {
+            if (pathSet.contains(node)) {
+                return node;
+            }
+            node = parentMap.get(node);
+        }
+
+        return null;
+    }
+
+    private void buildParentMap(TreeNode head, Map<TreeNode, TreeNode> parentMap) {
+        TreeNode left = head.left;
+        if (left != null) {
+            parentMap.put(left, head);
+            buildParentMap(left, parentMap);
+        }
+
+        TreeNode right = head.right;
+        if (right != null) {
+            parentMap.put(right, head);
+            buildParentMap(right, parentMap);
+        }
+    }
+
+
+
+
+    /**
+     * 回溯法，将2个节点的路径找出来，然后查找最后一个相同的节点
+     * @param root
+     * @param p
+     * @param q
+     * @return
+     */
+    public TreeNode lowestCommonAncestor_backtracking(TreeNode root, TreeNode p, TreeNode q) {
+        LinkedList<TreeNode> pPath = new LinkedList<>();
+        LinkedList<TreeNode> qPath = new LinkedList<>();
+
+        find(root, p, pPath);
+        find(root, q, qPath);
+
+        TreeNode ans = null;
+        int i = 0;
+        while (i < pPath.size() && i < qPath.size()) {  // 退出条件：i = pPath.size() || i = qPath.size()
+            if (pPath.get(i).val != qPath.get(i).val) {
+                break;
+            }
+
+            ans = pPath.get(i); // 随便选一个，pPath或者qPath都行
+            i++;
+        }
+
+        return ans;
+    }
+
+    private boolean find(TreeNode head, TreeNode target, LinkedList<TreeNode> path) {
+        if (head == null) {
+            return false;
+        }
+
+        path.addLast(head);
+
+        if (head.val == target.val) {
+            return true;
+        }
+
+        // 进入左子树
+        if (find(head.left, target, path)) {
+            return true;
+        }
+
+        // 进入右子树
+        if (find(head.right, target, path)) {
+            return true;
+        }
+
+        // 撤销
+        path.removeLast();
+        return false;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public TreeNode lowestCommonAncestor_210301(TreeNode root, TreeNode p, TreeNode q) {
@@ -75,7 +266,7 @@ public class 剑指Offer68_二叉树的最近公共祖先 {
      * @param q
      * @return
      */
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+    public TreeNode lowestCommonAncestor_old(TreeNode root, TreeNode p, TreeNode q) {
         // 1、build每个节点指向父节点的Map
         Map<TreeNode, TreeNode> parentMap = new HashMap<>();
         buildParentMap(parentMap, root);

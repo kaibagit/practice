@@ -9,25 +9,95 @@ import java.util.Queue;
  */
 public class LC226_翻转二叉树 {
 
-
     /**
-     * dfs
+     * BFS
      * @param root
      * @return
      */
-    public TreeNode invertTree_210309_V1(TreeNode root) {
+    public TreeNode invertTree(TreeNode root) {
+        if (root == null) return null;
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+            TreeNode left = node.left;
+            TreeNode right = node.right;
+            node.left = right;
+            node.right = left;
+
+            if (left != null) {
+                queue.offer(left);
+            }
+            if (right != null) {
+                queue.offer(right);
+            }
+        }
+
+        return root;
+    }
+
+    /**
+     * 递归dfs
+     * @param root
+     * @return
+     */
+    public TreeNode invertTree_dfs(TreeNode root) {
         if (root == null) {
             return null;
         }
 
-        TreeNode left = root.left;
-        TreeNode right = root.right;
+        TreeNode newLeftTree = invertTree_dfs(root.left);
+        TreeNode newRightTree = invertTree_dfs(root.right);
 
-        root.left = invertTree_210309_V1(right);
-        root.right = invertTree_210309_V1(left);
+        root.left = newRightTree;
+        root.right = newLeftTree;
 
         return root;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     /**
@@ -57,58 +127,5 @@ public class LC226_翻转二叉树 {
         }
 
         return root;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public TreeNode mirrorTree_old(TreeNode root) {
-        return reverse(root);
-    }
-
-    private TreeNode reverse(TreeNode node) {
-        if(node == null) {
-            return null;
-        }
-        TreeNode tmp = reverse(node.left);
-        node.left = reverse(node.right);
-        node.right = tmp;
-        return node;
     }
 }
